@@ -49,17 +49,17 @@ export function UpdatePasswordForm({
             <Card>
                 <CardHeader>
                     <CardTitle className="text-2xl">
-                        Reset Your Password
+                        Atualize sua senha.{' '}
                     </CardTitle>
                     <CardDescription>
-                        Please enter your new password below.
+                        Por favor digite sua nova senha abaixo.{' '}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleForgotPassword}>
                         <div className="flex flex-col gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="password">New password</Label>
+                                <Label htmlFor="password">Nova senha</Label>
                                 <Input
                                     id="password"
                                     type="password"
@@ -79,7 +79,9 @@ export function UpdatePasswordForm({
                                 className="w-full"
                                 disabled={isLoading}
                             >
-                                {isLoading ? 'Saving...' : 'Save new password'}
+                                {isLoading
+                                    ? 'Salvando...'
+                                    : 'Salvar nova senha'}
                             </Button>
                         </div>
                     </form>
