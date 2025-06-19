@@ -62,14 +62,14 @@ const ThemeSwitcher = () => {
                             size={ICON_SIZE}
                             className="text-muted-foreground"
                         />{' '}
-                        <span>Light</span>
+                        <span>Claro</span>
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem className="flex gap-2" value="dark">
                         <Moon
                             size={ICON_SIZE}
                             className="text-muted-foreground"
                         />{' '}
-                        <span>Dark</span>
+                        <span>Escuro</span>
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
                         className="flex gap-2"
@@ -79,7 +79,7 @@ const ThemeSwitcher = () => {
                             size={ICON_SIZE}
                             className="text-muted-foreground"
                         />{' '}
-                        <span>System</span>
+                        <span>Sistema</span>
                     </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>

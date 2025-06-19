@@ -73,16 +73,16 @@ export function SignUpUserSteps() {
                     </Link>
                 </TutorialStep>
             ) : null}
-            <TutorialStep title="Sign up your first user">
+            <TutorialStep title="Entrar your first user">
                 <p>
                     Head over to the{' '}
                     <Link
                         href="auth/sign-up"
                         className="font-bold hover:underline text-foreground/80"
                     >
-                        Sign up
+                        Entrar
                     </Link>{' '}
-                    page and sign up your first user. It&apos;s okay if this is
+                    page and Entrar your first user. It&apos;s okay if this is
                     just you for now. Your awesome idea will have plenty of
                     users later!
                 </p>

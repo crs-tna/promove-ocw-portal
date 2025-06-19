@@ -62,7 +62,7 @@ export function SignUpForm({
         <div className={cn('flex flex-col gap-6', className)} {...props}>
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl">Sign up</CardTitle>
+                    <CardTitle className="text-2xl">Entrar</CardTitle>
                     <CardDescription>Create a new account</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -119,7 +119,7 @@ export function SignUpForm({
                             >
                                 {isLoading
                                     ? 'Creating an account...'
-                                    : 'Sign up'}
+                                    : 'Entrar'}
                             </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
@@ -128,7 +128,7 @@ export function SignUpForm({
                                 href="/auth/login"
                                 className="underline underline-offset-4"
                             >
-                                Login
+                                Entrar
                             </Link>
                         </div>
                     </form>
