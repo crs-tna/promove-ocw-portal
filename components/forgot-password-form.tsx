@@ -52,16 +52,17 @@ export function ForgotPasswordForm({
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl">
-                            Check Your Email
+                            Verifique seu e-mail
                         </CardTitle>
                         <CardDescription>
-                            Password reset instructions sent
+                            Instruções para troca de senha enviadas!
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <p className="text-sm text-muted-foreground">
-                            If you registered using your email and password, you
-                            will receive a password reset email.
+                            Se você se registrou usando e-mail e senha, você
+                            receberá um e-mail com instruções para troca da
+                            senha.
                         </p>
                     </CardContent>
                 </Card>
@@ -69,18 +70,18 @@ export function ForgotPasswordForm({
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl">
-                            Reset Your Password
+                            Altere sua senha{' '}
                         </CardTitle>
                         <CardDescription>
-                            Type in your email and we&apos;ll send you a link to
-                            reset your password
+                            Digite seu e-mail e nós enviaremos um link para
+                            alteração de senha
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleForgotPassword}>
                             <div className="flex flex-col gap-6">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email</Label>
+                                    <Label htmlFor="email">E-mail</Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -108,12 +109,12 @@ export function ForgotPasswordForm({
                                 </Button>
                             </div>
                             <div className="mt-4 text-center text-sm">
-                                Already have an account?{' '}
+                                Já possui uma conta?{' '}
                                 <Link
                                     href="/auth/login"
                                     className="underline underline-offset-4"
                                 >
-                                    Login
+                                    Entrar
                                 </Link>
                             </div>
                         </form>
