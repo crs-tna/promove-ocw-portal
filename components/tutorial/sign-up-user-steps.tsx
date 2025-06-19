@@ -83,6 +83,7 @@ export function SignUpUserSteps() {
                         Entrar
                     </Link>{' '}
                     page and Entrar your first user. It&apos;s okay if this is
+
                     just you for now. Your awesome idea will have plenty of
                     users later!
                 </p>

@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
+
 export default async function ProtectedPage() {
     const supabase = await createClient()
 

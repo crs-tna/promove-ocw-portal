@@ -6,6 +6,7 @@ import Link from 'next/link'
 import EmailIcon from '@mui/icons-material/Email'
 import InstagramIcon from '@mui/icons-material/Instagram'
 
+
 export default function Home() {
     return (
         <main className="min-h-screen flex flex-col items-center">
@@ -14,6 +15,7 @@ export default function Home() {
                     <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
                         <div className="flex gap-5 items-center font-semibold">
                             <Link href={'/'}>Cursos abertos UFRJ</Link>
+
                         </div>
                         {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
                     </div>
@@ -22,6 +24,7 @@ export default function Home() {
                     <Hero />
                     <main className="flex-1 flex flex-col gap-6 px-4">
                         {/* <h2 className="font-medium text-xl mb-4">Next steps</h2>
+                        <h2 className="font-medium text-xl mb-4">Next steps</h2>
                         {hasEnvVars ? (
                             <SignUpUserSteps />
                         ) : (

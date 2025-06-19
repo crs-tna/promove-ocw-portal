@@ -11,6 +11,7 @@ import {
 import LaptopOutlinedIcon from '@mui/icons-material/LaptopOutlined'
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
+
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
@@ -48,7 +49,7 @@ const ThemeSwitcher = () => {
                     ) : (
                         <LaptopOutlinedIcon
                             key="system"
-                            sx={{ fontSize: ICON_SIZE }}
+                            sx={{ fontSize: ICON_SIZE }
                             className={'text-muted-foreground'}
                         />
                     )}
@@ -85,6 +86,7 @@ const ThemeSwitcher = () => {
                             className={'text-muted-foreground'}
                         />{' '}
                         <span>Sistema</span>
+
                     </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
