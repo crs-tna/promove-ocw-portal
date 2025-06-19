@@ -8,7 +8,9 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Laptop, Moon, Sun } from 'lucide-react'
+import LaptopOutlinedIcon from '@mui/icons-material/LaptopOutlined'
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
@@ -32,21 +34,21 @@ const ThemeSwitcher = () => {
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size={'sm'}>
                     {theme === 'light' ? (
-                        <Sun
+                        <LightModeOutlinedIcon
                             key="light"
-                            size={ICON_SIZE}
+                            sx={{ fontSize: ICON_SIZE }}
                             className={'text-muted-foreground'}
                         />
                     ) : theme === 'dark' ? (
-                        <Moon
+                        <DarkModeOutlinedIcon
                             key="dark"
-                            size={ICON_SIZE}
+                            sx={{ fontSize: ICON_SIZE }}
                             className={'text-muted-foreground'}
                         />
                     ) : (
-                        <Laptop
+                        <LaptopOutlinedIcon
                             key="system"
-                            size={ICON_SIZE}
+                            sx={{ fontSize: ICON_SIZE }}
                             className={'text-muted-foreground'}
                         />
                     )}
@@ -58,28 +60,31 @@ const ThemeSwitcher = () => {
                     onValueChange={(e) => setTheme(e)}
                 >
                     <DropdownMenuRadioItem className="flex gap-2" value="light">
-                        <Sun
-                            size={ICON_SIZE}
-                            className="text-muted-foreground"
+                        <LightModeOutlinedIcon
+                            key="light"
+                            sx={{ fontSize: ICON_SIZE }}
+                            className={'text-muted-foreground'}
                         />{' '}
-                        <span>Light</span>
+                        <span>Claro</span>
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem className="flex gap-2" value="dark">
-                        <Moon
-                            size={ICON_SIZE}
-                            className="text-muted-foreground"
+                        <DarkModeOutlinedIcon
+                            key="dark"
+                            sx={{ fontSize: ICON_SIZE }}
+                            className={'text-muted-foreground'}
                         />{' '}
-                        <span>Dark</span>
+                        <span>Escuro</span>
                     </DropdownMenuRadioItem>
                     <DropdownMenuRadioItem
                         className="flex gap-2"
                         value="system"
                     >
-                        <Laptop
-                            size={ICON_SIZE}
-                            className="text-muted-foreground"
+                        <LaptopOutlinedIcon
+                            key="system"
+                            sx={{ fontSize: ICON_SIZE }}
+                            className={'text-muted-foreground'}
                         />{' '}
-                        <span>System</span>
+                        <span>Sistema</span>
                     </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
