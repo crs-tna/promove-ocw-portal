@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 export default async function ProtectedPage() {
     const supabase = await createClient()
@@ -14,7 +14,7 @@ export default async function ProtectedPage() {
         <div className="flex-1 w-full flex flex-col gap-12">
             <div className="w-full">
                 <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-                    <InfoOutlinedIcon sx={{fontSize: '16px'}}/>
+                    <InfoOutlinedIcon sx={{ fontSize: '16px' }} />
                     This is a protected page that you can only see as an
                     authenticated user
                 </div>

@@ -70,9 +70,11 @@ export function ForgotPasswordForm({
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl">
-Altere sua senha                        </CardTitle>
+                            Altere sua senha{' '}
+                        </CardTitle>
                         <CardDescription>
-                            Digite seu e-mail e nós enviaremos um link para alteração de senha
+                            Digite seu e-mail e nós enviaremos um link para
+                            alteração de senha
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
