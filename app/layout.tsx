@@ -14,7 +14,8 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
     metadataBase: new URL(defaultUrl),
     title: 'Cursos abertos | UFRJ',
-    description: 'Plataforma de Cursos abertos da Universidade Federal do Rio de Janeiro',
+    description:
+        'Plataforma de Cursos abertos da Universidade Federal do Rio de Janeiro',
 }
 
 const geistSans = Geist({
