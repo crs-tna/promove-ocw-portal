@@ -19,8 +19,7 @@ import { useState } from 'react'
 export function LoginForm({
     className,
     ...props
-}: React.ComponentPropsWithoutRef<'div'>) {
-    const [email, setEmail] = useState('')
+}: React.ComponentPropsWithoutRef<'div'>) {    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -32,8 +31,7 @@ export function LoginForm({
         setIsLoading(true)
         setError(null)
 
-        try {
-            const { error } = await supabase.auth.signInWithPassword({
+        try {            const { error } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             })
@@ -44,8 +42,7 @@ export function LoginForm({
             setError(
                 error instanceof Error ? error.message : 'An error occurred'
             )
-        } finally {
-            setIsLoading(false)
+        } finally {            setIsLoading(false)
         }
     }
 
