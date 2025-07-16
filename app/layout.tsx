@@ -1,11 +1,15 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Readex_Pro, Roboto, Montserrat } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+
+import SideNav from '@/components/side-nav'
+import { Analytics } from '@vercel/analytics/next'
+import Header from '@/components/ui/header'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -18,10 +22,16 @@ export const metadata: Metadata = {
         'Plataforma de Cursos abertos da Universidade Federal do Rio de Janeiro',
 }
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    display: 'swap',
+const readexPro = Readex_Pro({ subsets: ['latin'], variable: '--font-readex' })
+const roboto = Roboto({
     subsets: ['latin'],
+    weight: ['400', '700'],
+    variable: '--font-roboto',
+})
+const montserrat = Montserrat({
+    subsets: ['latin'],
+    weight: ['400', '700'],
+    variable: '--font-montserrat',
 })
 
 export default function RootLayout({
@@ -30,15 +40,28 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.className} antialiased`}>
+        <html
+            lang="pt-BR"
+            className={`${readexPro.variable} ${roboto.variable} ${montserrat.variable}`}
+        >
+            <Analytics />
+
+            <body className="font-body antialiased">
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <div>
+                        <Header />
+                    </div>
+                    <div className="flex justify-center min-h-screen">
+                        <SideNav />
+                        <main className="flex-1 flex justify-center p-10">
+                            {children}
+                        </main>
+                    </div>
                 </ThemeProvider>
             </body>
         </html>
