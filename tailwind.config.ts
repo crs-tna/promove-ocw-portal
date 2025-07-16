@@ -10,17 +10,14 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                heading: ['Montserrat', 'sans-serif'], // pra UFRJ
+                body: ['"Readex Pro"', 'sans-serif'], // corpo do texto
+                support: ['Roboto', 'sans-serif'], // textos auxiliares
+            },
             colors: {
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
-                card: {
-                    DEFAULT: 'hsl(var(--card))',
-                    foreground: 'hsl(var(--card-foreground))',
-                },
-                popover: {
-                    DEFAULT: 'hsl(var(--popover))',
-                    foreground: 'hsl(var(--popover-foreground))',
-                },
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
                     foreground: 'hsl(var(--primary-foreground))',
@@ -28,6 +25,18 @@ export default {
                 secondary: {
                     DEFAULT: 'hsl(var(--secondary))',
                     foreground: 'hsl(var(--secondary-foreground))',
+                },
+                tertiary: {
+                    DEFAULT: 'hsl(var(--tertiary))',
+                    foreground: 'hsl(var(--tertiary-foreground))',
+                },
+                card: {
+                    DEFAULT: 'hsl(var(--card))',
+                    foreground: 'hsl(var(--card-foreground))',
+                },
+                popover: {
+                    DEFAULT: 'hsl(var(--popover))',
+                    foreground: 'hsl(var(--popover-foreground))',
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
