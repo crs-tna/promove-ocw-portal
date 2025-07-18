@@ -1,5 +1,6 @@
 import { Hero } from '@/components/hero'
 
+// TODO: implement general homepage (for non-logged in users)
 export default function Home() {
     return (
         <main className="min-h-screen flex flex-col items-center">
