@@ -1,6 +1,6 @@
 // Create database interactions here and import them in client files
 
-import { createClient } from "./supabase/server"
+import { createClient } from './supabase/server'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const supabase = createClient()
