@@ -1,3 +1,5 @@
+// this page will die
+
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
