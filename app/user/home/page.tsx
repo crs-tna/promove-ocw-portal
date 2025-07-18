@@ -2,7 +2,10 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-export default async function ProtectedPage() {
+// TODO: implement user homepage (specific for logged in users)
+// WARN: do not make this a client file, only manipulate states inside components, please.
+
+export default async function UserHomePage() {
     const supabase = await createClient()
 
     const { data, error } = await supabase.auth.getUser()
