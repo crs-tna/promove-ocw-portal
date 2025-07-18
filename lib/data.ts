@@ -1,5 +1,6 @@
-import { createClient } from '@supabase/supabase-js'
+// Create database interactions here and import them in client files 
 
+import { createClient } from '@supabase/supabase-js'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const supabase = createClient(
@@ -36,10 +37,6 @@ const supabase = createClient(
 //         amount: formatCurrency(invoice.amount),
 //     }))
 // }
-
-
-
-
 
 // TODO: fetchUserDataById
 
