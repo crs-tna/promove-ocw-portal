@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
-
 // TODO: implement user homepage (specific for logged in users)
 // WARN: do not make this a client file, only manipulate states inside components, please.
 
