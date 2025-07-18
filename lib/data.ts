@@ -1,12 +1,9 @@
-// Create database interactions here and import them in client files 
+// Create database interactions here and import them in client files
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "./supabase/server"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+const supabase = createClient()
 
 // ---- EXAMPLES ---- //
 // export async function fetchRevenue() {
