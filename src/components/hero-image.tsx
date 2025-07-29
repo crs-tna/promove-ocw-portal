@@ -36,7 +36,7 @@ export function HeroImage() {
                     />
                 </g>
                 <g
-                    style={{ mixBlendMode: "color-burn" }}
+                    style={{ mixBlendMode: 'color-burn' }}
                     opacity="0.8"
                     filter="url(#filter2_f_20_220)"
                 >
@@ -50,7 +50,7 @@ export function HeroImage() {
                     />
                 </g>
                 <g
-                    style={{ mixBlendMode: "color-burn" }}
+                    style={{ mixBlendMode: 'color-burn' }}
                     filter="url(#filter3_f_20_220)"
                 >
                     <ellipse
@@ -62,7 +62,7 @@ export function HeroImage() {
                         fill="#8285E3"
                     />
                 </g>
-                <g style={{ mixBlendMode: "color-dodge" }} opacity="0.78">
+                <g style={{ mixBlendMode: 'color-dodge' }} opacity="0.78">
                     <circle
                         cx="521.787"
                         cy="419.565"
@@ -71,7 +71,7 @@ export function HeroImage() {
                     />
                 </g>
                 <g
-                    style={{ mixBlendMode: "color-dodge" }}
+                    style={{ mixBlendMode: 'color-dodge' }}
                     filter="url(#filter4_f_20_220)"
                 >
                     <ellipse
@@ -83,7 +83,7 @@ export function HeroImage() {
                         fill="#D0D2FF"
                     />
                 </g>
-                <g style={{ mixBlendMode: "color-dodge" }} opacity="0.33">
+                <g style={{ mixBlendMode: 'color-dodge' }} opacity="0.33">
                     <circle
                         cx="1070.99"
                         cy="611.046"
@@ -91,7 +91,7 @@ export function HeroImage() {
                         fill="#5D8EBF"
                     />
                 </g>
-                <g style={{ mixBlendMode: "plus-lighter" }}>
+                <g style={{ mixBlendMode: 'plus-lighter' }}>
                     <path
                         opacity="0.07"
                         d="M884.889 577.966C870.776 569.741 860.552 569.519 854.218 577.299C847.884 584.968 844.772 597.972 844.772 616.31V715.117C844.772 733.9 842.994 749.46 839.549 761.797C836.105 774.579 830.215 783.693 822.103 789.028C814.213 794.474 803.544 795.918 789.987 793.362C776.763 790.917 760.205 784.026 740.425 772.578L730.979 767.132V689.332L742.758 696.111C756.871 704.336 766.317 705.336 771.096 699.335C776.096 693.555 778.652 681.441 778.652 663.102V576.076C778.652 553.403 780.875 535.509 785.32 522.283C789.765 509.057 798.544 500.721 811.768 496.942C798.544 477.937 789.765 459.376 785.32 441.148C780.875 422.921 778.763 402.47 778.763 379.797V292.772C778.763 274.433 776.207 259.54 771.207 247.87C766.539 236.422 757.094 226.641 742.87 218.416L731.09 211.637V133.836L740.536 139.282C760.316 150.73 776.874 162.845 790.098 175.737C803.656 188.741 814.324 202.634 822.214 217.194C830.437 231.976 836.216 247.758 839.661 264.541C843.105 280.879 844.883 298.551 844.883 317.223V416.03C844.883 434.368 847.995 451.04 854.329 465.933C860.663 480.938 870.887 492.496 885 500.61L884.889 577.966Z"
