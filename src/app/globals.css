@@ -5,11 +5,11 @@
 @layer base {
     :root {
         /* Projeto de extensão - claro */
-        --background: 0 0% 95%; /* #f2f2f2 */
-        --foreground: 40 6% 5%; /* #14120f */
+        --background: 36 0% 95%; /* #f2f2f2 */
+        --foreground: 36 14% 7%; /* #14120f */
 
-        --primary: 24 100% 60%; /* #ff6600 */
-        --primary-foreground: 0 0% 100%; /* branco sobre o laranja */
+        --primary: 24 100% 50%; /* #ff6600 */
+        --primary-foreground: 0 0% 100%; /* #fff */
 
         --secondary: 285 76% 31%; /* #75138d */
         --secondary-foreground: 0 0% 100%;
@@ -36,22 +36,22 @@
         --input: 240 5% 85%;
         --ring: 24 100% 60%; /* usar cor primária como ring */
 
-        --chart-1: 24 100% 60%;
+        --chart-1: 24 100% 50%;
         --chart-2: 285 76% 31%;
         --chart-3: 63 100% 41%;
         --chart-4: 210 100% 20%; /* #003366 */
-        --chart-5: 40 6% 5%; /* #14120f */
+        --chart-5: 36 14% 7%; /* #14120f */
 
         --radius: 0.5rem;
     }
 
     .dark {
         /* Tema escuro */
-        --background: 40 6% 5%; /* #14120f */
+        --background: 36 14% 4%; /* #0C0B09 */
         --foreground: 0 0% 100%; /* branco */
 
-        --primary: 24 100% 60%;
-        --primary-foreground: 0 0% 100%;
+        --primary: 24 100% 50%; /* #ff6600 */
+        --primary-foreground: 0 0% 100%; /* #fff */
 
         --secondary: 285 76% 31%;
         --secondary-foreground: 0 0% 100%;

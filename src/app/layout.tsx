@@ -43,20 +43,17 @@ export default function RootLayout({
             lang="pt-BR"
             className={`${readexPro.variable} ${roboto.variable} ${montserrat.variable}`}
         >
-            <Analytics />
-
             <body className="font-body antialiased">
+                <Analytics />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <div>
+                    <div className="min-h-screen flex flex-col">
                         <Header />
-                    </div>
-                    <div className="flex justify-center">
-                        <main className="flex justify-center">{children}</main>
+                        <main className="flex-1 w-full">{children}</main>
                     </div>
                 </ThemeProvider>
             </body>
