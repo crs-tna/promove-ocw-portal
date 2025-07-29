@@ -1,8 +1,8 @@
 export function PromoveLogo() {
     return (
         <svg
-            width="223"
-            height="34"
+            width="111"
+            height="17"
             viewBox="0 0 223 34"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
