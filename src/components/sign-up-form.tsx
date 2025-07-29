@@ -6,7 +6,6 @@ import { Button } from '@/src/components/ui/button'
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from '@/src/components/ui/card'
@@ -15,13 +14,17 @@ import { Label } from '@/src/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Checkbox } from './ui/checkbox'
 
 export function SignUpForm({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
     const [email, setEmail] = useState('')
+    const [userFullName, setUserFullName] = useState('')
+    const [isStudent, setIsStudent] = useState<boolean>(false)
     const [password, setPassword] = useState('')
+    const [dre, setDre] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -62,8 +65,7 @@ export function SignUpForm({
         <div className={cn('flex flex-col gap-6', className)} {...props}>
             <Card>
                 <CardHeader>
-                    <CardTitle className="text-2xl">Entrar</CardTitle>
-                    <CardDescription>Create a new account</CardDescription>
+                    <CardTitle className="text-2xl">Criar nova conta</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSignUp}>
@@ -73,15 +75,31 @@ export function SignUpForm({
                                 <Input
                                     id="email"
                                     type="email"
-                                    placeholder="m@example.com"
+                                    placeholder="email@exemplo.com"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div className="grid gap-2">
+                                <Label htmlFor="userFullName">
+                                    Nome completo
+                                </Label>
+                                {/* TODO: CONSERTAR VALOR DE INPUT */}
+                                <Input
+                                    id="userFullName"
+                                    type="userFullName"
+                                    required
+                                    value={userFullName}
+                                    onChange={(e) =>
+                                        setUserFullName(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="password">Senha</Label>
                                 </div>
                                 <Input
                                     id="password"
@@ -96,7 +114,7 @@ export function SignUpForm({
                             <div className="grid gap-2">
                                 <div className="flex items-center">
                                     <Label htmlFor="repeat-password">
-                                        Repeat Password
+                                        Repita a senha
                                     </Label>
                                 </div>
                                 <Input
@@ -109,6 +127,42 @@ export function SignUpForm({
                                     }
                                 />
                             </div>
+                            <div className="grid gap-2">
+                                <div className="flex items-center space-x-2 pb-2">
+                                    <Checkbox
+                                        id="isStudent"
+                                        checked={isStudent}
+                                        onCheckedChange={(checked) =>
+                                            setIsStudent(!!checked)
+                                        }
+                                    />
+                                    <Label
+                                        htmlFor="isStudent"
+                                        className="font-light"
+                                    >
+                                        Sou estudante da UFRJ
+                                    </Label>
+                                </div>
+                                {isStudent && (
+                                    <div className="grid gap-2">
+                                        <div className="flex items-center">
+                                            <Label htmlFor="password">
+                                                DRE
+                                            </Label>
+                                        </div>
+                                        <Input
+                                            id="dre"
+                                            type="dre"
+                                            placeholder='123456789'
+                                            required
+                                            value={dre}
+                                            onChange={(e) =>
+                                                setDre(e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                )}
+                            </div>
                             {error && (
                                 <p className="text-sm text-red-500">{error}</p>
                             )}
@@ -117,13 +171,11 @@ export function SignUpForm({
                                 className="w-full"
                                 disabled={isLoading}
                             >
-                                {isLoading
-                                    ? 'Creating an account...'
-                                    : 'Entrar'}
+                                {isLoading ? 'Criando conta...' : 'Entrar'}
                             </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
-                            Already have an account?{' '}
+                            Já possui uma conta?{' '}
                             <Link
                                 href="/auth/login"
                                 className="underline underline-offset-4"
