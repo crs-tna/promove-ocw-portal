@@ -22,7 +22,9 @@ export default function Page() {
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm text-muted-foreground">
-                                Você se registrou com sucesso. Por favor, verifique seu e-mail para confirmar sua conta antes de entrar.
+                                Você se registrou com sucesso. Por favor,
+                                verifique seu e-mail para confirmar sua conta
+                                antes de entrar.
                             </p>
                         </CardContent>
                     </Card>
