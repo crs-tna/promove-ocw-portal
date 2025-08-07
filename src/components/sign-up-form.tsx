@@ -21,7 +21,8 @@ export function SignUpForm({
     ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
     const [email, setEmail] = useState('')
-    const [userFullName, setUserFullName] = useState('')
+    const [userFirstName, setUserFirstName] = useState('')
+    const [userLastName, setUserLastName] = useState('')
     const [isStudent, setIsStudent] = useState<boolean>(false)
     const [password, setPassword] = useState('')
     const [dre, setDre] = useState('')
@@ -37,20 +38,38 @@ export function SignUpForm({
         setError(null)
 
         if (password !== repeatPassword) {
-            setError('Passwords do not match')
+            setError('As senhas estão diferentes')
             setIsLoading(false)
             return
         }
 
         try {
-            const { error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    emailRedirectTo: `${window.location.origin}/protected`,
-                },
-            })
-            if (error) throw error
+            const { data: userData, error: authError } =
+                await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        emailRedirectTo: `${window.location.origin}/protected`,
+                    },
+                })
+
+            if (authError) throw authError
+
+            const user = userData.user
+
+            if (user) {
+                const { error: insertError } = await supabase
+                    .from('users')
+                    .insert({
+                        id: user.id,
+                        first_name: userFirstName,
+                        last_name: userLastName,
+                        dre: isStudent ? dre : null,
+                        role: isStudent ? 'student' : 'guest',
+                    })
+
+                if (insertError) throw insertError
+            }
             router.push('/auth/sign-up-success')
         } catch (error: unknown) {
             setError(
@@ -82,17 +101,28 @@ export function SignUpForm({
                                 />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="userFullName">
-                                    Nome completo
-                                </Label>
+                                <Label htmlFor="userFirstName">Nome</Label>
                                 {/* TODO: CONSERTAR VALOR DE INPUT */}
                                 <Input
-                                    id="userFullName"
-                                    type="userFullName"
+                                    id="userFirstName"
+                                    type="userFirstName"
                                     required
-                                    value={userFullName}
+                                    value={userFirstName}
                                     onChange={(e) =>
-                                        setUserFullName(e.target.value)
+                                        setUserFirstName(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div className="grid gap-2">
+                                <Label htmlFor="userLastName">Sobrenome</Label>
+                                {/* TODO: CONSERTAR VALOR DE INPUT */}
+                                <Input
+                                    id="userLastName"
+                                    type="userLastName"
+                                    required
+                                    value={userLastName}
+                                    onChange={(e) =>
+                                        setUserLastName(e.target.value)
                                     }
                                 />
                             </div>
