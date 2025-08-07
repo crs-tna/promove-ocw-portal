@@ -9,6 +9,7 @@ import '@fontsource/roboto/700.css'
 
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/src/components/ui/header'
+import { UserContextProvider } from '../common/contexts/UserContext'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -52,8 +53,10 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <div className="min-h-screen flex flex-col">
-                        <Header />
-                        <main className="flex-1 w-full">{children}</main>
+                        <UserContextProvider>
+                            <Header />
+                            <main className="flex-1 w-full">{children}</main>
+                        </UserContextProvider>
                     </div>
                 </ThemeProvider>
             </body>
