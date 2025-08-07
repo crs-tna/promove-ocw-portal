@@ -1,39 +1,26 @@
 // Create database interactions here and import them in client files
 
-import { createClient } from './supabase/server'
+import { randomUUID } from 'crypto'
+import { createClient } from './supabase/client'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const supabase = createClient()
 
-// ---- EXAMPLES ---- //
-// export async function fetchRevenue() {
-//     const { data, error } = await supabase.from('revenue').select('*')
+export async function createCourse() {
+    const { data, error } = await supabase.from('courses').insert({
+        id: randomUUID,
+        title: 'Modelagem Matemática',
+        description:
+            'Disciplina obrigatória do vigésimo período de Ciências da Computação',
+    })
 
-//     if (error) {
-//         console.error('Database Error:', error)
-//         throw new Error('Failed to fetch revenue data.')
-//     }
+    if (error) {
+        console.error('Erro ao criar curso:', error)
+        return { error }
+    }
 
-//     return data
-// }
-
-// export async function fetchLatestInvoices() {
-//     const { data, error } = await supabase
-//         .from('invoices')
-//         .select('amount, id, customers(name, image_url, email)')
-//         .order('date', { ascending: false })
-//         .limit(5)
-
-//     if (error) {
-//         console.error('Database Error:', error)
-//         throw new Error('Failed to fetch the latest invoices.')
-//     }
-
-//     return data.map((invoice) => ({
-//         ...invoice,
-//         amount: formatCurrency(invoice.amount),
-//     }))
-// }
+    console.log('Curso criado com sucesso:', data)
+    return { data }
+}
 
 // TODO: fetchUserDataById
 
