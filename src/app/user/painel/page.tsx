@@ -17,9 +17,9 @@ interface Course {
     description: string
     category: string
     duration: string
-    status: string
-    students: number // Mudou de students_count para students
-    createdAt: string // Mudou de created_at para createdAt
+    status: 'Ativo' | 'Rascunho' | 'Arquivado' | 'Pausado'
+    students: number 
+    created_at: string 
 }
 
 // A interface do formulário continua a mesma

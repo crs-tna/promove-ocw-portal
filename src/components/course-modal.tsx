@@ -21,7 +21,7 @@ interface Course {
     duration: string
     students: number
     status: string
-    createdAt: string
+    created_at: string
 }
 
 interface FormData {
