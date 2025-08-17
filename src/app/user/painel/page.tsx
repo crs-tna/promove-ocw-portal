@@ -7,7 +7,8 @@ import CourseStats from '@/src/components/course-stats'
 import CourseList from '@/src/components/course-list'
 import CourseModal from '@/src/components/course-modal'
 // 1. Importe todas as funções necessárias para as operações CRUD
-import { getProfessorCourses, createCourse } from '@/src/common/lib/course'
+import { getProfessorCourses, deleteCourse } from '@/src/common/lib/course'
+import { getUserIdByName } from '@/src/common/lib/users'
 
 // A interface do curso deve corresponder à estrutura de dados do Supabase
 interface Course {
@@ -31,12 +32,9 @@ interface FormData {
 }
 
 const CursosPage: React.FC = () => {
-    // 2. O estado inicial dos cursos é um array vazio
     const [courses, setCourses] = useState<Course[]>([])
-    // 3. Estados para gerenciar o carregamento e possíveis erros
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
-
     const [showModal, setShowModal] = useState<boolean>(false)
     const [editingCourse, setEditingCourse] = useState<Course | null>(null)
     const [formData, setFormData] = useState<FormData>({
@@ -47,10 +45,12 @@ const CursosPage: React.FC = () => {
         status: 'Rascunho',
     })
 
-    // 4. Função centralizada para buscar os cursos e atualizar o estado
+
+    // Função centralizada para buscar os cursos e atualizar o estado
     const fetchCourses = async () => {
         setIsLoading(true)
-        const { data, error } = await getProfessorCourses()
+        const userId = await getUserIdByName('Vitória')
+        const { data, error } = await getProfessorCourses(userId.id) // id-professor vitória (fins de teste)
         if (error) {
             console.error('Erro ao buscar cursos:', error)
             setError('Não foi possível carregar os cursos. Tente novamente.')
@@ -61,7 +61,7 @@ const CursosPage: React.FC = () => {
         setIsLoading(false)
     }
 
-    // 5. useEffect para buscar os dados iniciais quando o componente é montado
+    // useEffect para buscar os dados iniciais quando o componente é montado
     useEffect(() => {
         fetchCourses()
     }, []) // O array vazio [] garante que isso rode apenas uma vez
@@ -77,40 +77,6 @@ const CursosPage: React.FC = () => {
             [name]: value,
         }))
     }
-
-    // 6. handleSubmit agora é assíncrono para esperar as operações do banco
-    const handleSubmit = async () => {
-        if (
-            !formData.title ||
-            !formData.description ||
-            !formData.category ||
-            !formData.duration
-        ) {
-            alert('Por favor, preencha todos os campos obrigatórios.')
-            return
-        }
-
-        let operationError = null
-
-        if (editingCourse) {
-            // Chama a função de update para o Supabase
-            const { error } = await updateCourse(editingCourse.id, formData)
-            operationError = error
-        } else {
-            // Chama a função de create para o Supabase
-            const { error } = await createCourse(formData)
-            operationError = error
-        }
-
-        if (operationError) {
-            alert('Ocorreu um erro ao salvar o curso.')
-        } else {
-            // 7. Após sucesso, busca a lista atualizada e fecha o modal
-            await fetchCourses()
-            resetForm()
-        }
-    }
-
     const resetForm = () => {
         setFormData({
             title: '',
@@ -137,6 +103,7 @@ const CursosPage: React.FC = () => {
 
     // 8. handleDelete também se torna assíncrono
     const handleDelete = async (courseId: number) => {
+        console.log(courseId)
         if (confirm('Tem certeza que deseja excluir este curso?')) {
             const { error } = await deleteCourse(courseId)
             if (error) {
@@ -193,7 +160,6 @@ const CursosPage: React.FC = () => {
                     editingCourse={editingCourse}
                     formData={formData}
                     onClose={resetForm}
-                    onSubmit={handleSubmit}
                     onInputChange={handleInputChange}
                 />
             </div>

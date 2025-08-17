@@ -10,7 +10,8 @@ import {
 } from '@/src/components/ui/card'
 import { Input } from '@/src/components/ui/input'
 import { Label } from '@/src/components/ui/label'
-import { createCourse } from '../common/lib/course'
+import { createCourse, updateCourse } from '../common/lib/course'
+import { getUserIdByName } from '@/src/common/lib/users'
 
 interface Course {
     id: number
@@ -44,12 +45,12 @@ interface CourseModalProps {
     ) => void
 }
 
+
 const CourseModal: React.FC<CourseModalProps> = ({
     isOpen,
     editingCourse,
     formData,
     onClose,
-    onSubmit,
     onInputChange,
 }) => {
     const categories = [
@@ -61,45 +62,33 @@ const CourseModal: React.FC<CourseModalProps> = ({
         'Teoria da Computação',
     ]
     const durations = [4, 8, 12, 16, 20]
+    // handleSubmit agora é assíncrono para esperar as operações do banco
+    const handleSubmit = async () => {
+        if (
+            !formData.title ||
+            !formData.description ||
+            !formData.category ||
+            !formData.duration
+        ) {
+            alert('Por favor, preencha todos os campos obrigatórios.')
+            return
+        }
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        let operationError = null
 
-        try {
-            // Criar objeto com os dados do form
-            const courseData = {
-                title: formData.title,
-                description: formData.description,
-                category: formData.category,
-                duration: formData.duration,
-                status: formData.status,
-            }
+        if (editingCourse) {
+            // Chama a função de update para o Supabase
+            const { error } = await updateCourse(editingCourse.id, formData)
+            operationError = error
+        } else {
+            // Chama a função de create para o Supabase
+            const userId = await getUserIdByName('Vitória')
+            const { error } = await createCourse(formData, userId.id)
+            operationError = error
+        }
 
-            // Se estiver editando, você pode incluir o ID
-            if (editingCourse) {
-                // Para edição, você precisaria de uma função updateCourse
-                // const { data } = await updateCourse(editingCourse.id, courseData);
-                console.log('Editando curso:', editingCourse.id, courseData)
-            } else {
-                // Para criar novo curso
-                const { data } = await createCourse(courseData)
-                console.log('Curso criado:', data)
-            }
-
-            alert(
-                editingCourse
-                    ? 'Curso atualizado com sucesso!'
-                    : 'Curso criado com sucesso!'
-            )
-
-            // Chamar onSubmit para que o componente pai possa atualizar a lista
-            onSubmit()
-
-            // Fechar o modal
-            onClose()
-        } catch (error) {
-            console.error('Erro ao salvar curso:', error)
-            alert('Erro ao salvar curso. Tente novamente.')
+        if (operationError) {
+            alert('Ocorreu um erro ao salvar o curso.')
         }
     }
 
@@ -184,7 +173,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="duration">Duração *</Label>
+                                    <Label htmlFor="duration">Duração em semanas *</Label>
                                     <select
                                         id="duration"
                                         name="duration"

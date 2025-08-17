@@ -11,7 +11,7 @@ interface FormData {
 
 const supabase = createClient()
 
-export async function createCourse(dataCourse: FormData) {
+export async function createCourse(dataCourse: FormData, id_professor: string) {
     const { data, error } = await supabase.from('courses').insert({
         id: randomUUID,
         title: dataCourse.title,
@@ -19,15 +19,28 @@ export async function createCourse(dataCourse: FormData) {
         category: dataCourse.category,
         duration: dataCourse.duration,
         status: dataCourse.status,
-    })
+    }).select()
 
     if (error) {
         console.error('Erro ao criar curso:', error)
         return { error }
     }
 
-    console.log('Curso criado com sucesso:', data)
-    return { data }
+    // 2. Associar professor ao curso criado
+    const { error: linkError } = await supabase
+        .from("teaches") // nome da tabela de relacionamento
+        .insert({
+        course_id: data[0].id,
+        teacher_id: id_professor,
+        })
+
+    if (linkError) {
+        console.error("Erro ao associar professor:", linkError)
+        return { error: linkError }
+    }
+
+    console.log("Curso criado e professor associado:", data[0].title)
+    return { data: data[0] }
 }
 
 export async function getAllCourses() {
@@ -42,13 +55,13 @@ export async function getAllCourses() {
     return { data }
 }
 
-export async function getProfessorCourses() {
+export async function getProfessorCourses(id_professor: string) {
     try {
         // Primeira consulta: buscar relacionamentos na tabela 'teaches'
         const { data: teachesData, error: teachesError } = await supabase
             .from('teaches')
             .select('course_id, teacher_id, created_at')
-            .eq('teacher_id', 'd8c8aee9-15da-46a8-bb98-aa7d8dc80c75')
+            .eq('teacher_id', id_professor) // id-vitoria
 
         if (teachesError) {
             console.error(
@@ -84,4 +97,40 @@ export async function getProfessorCourses() {
         console.error('Erro geral:', error)
         return { error: { message: 'Erro interno do servidor' } }
     }
+}
+
+export async function deleteCourse(id_course: string) {
+   const { data, error } = await supabase
+    .from('courses')
+    .delete()
+    .eq('id', id_course);
+    
+    if (error) {
+        console.error('Erro ao deletar curso:', error)
+        return { error }
+    }
+
+    console.log('Curso deletado com sucesso:', data)
+    return { data }
+}
+
+export async function updateCourse(id: string, dataCourse: FormData) {
+    const { data, error } = await supabase
+      .from('courses')
+      .update({ 
+        title: dataCourse.title,
+        description: dataCourse.description,
+        category: dataCourse.category,
+        duration: dataCourse.duration,
+        status: dataCourse.status,
+    })
+    .eq('id', id);
+    
+    if (error) {
+        console.error('Erro ao editar curso:', error)
+        return { error }
+    }
+
+    console.log('Curso atualizado com sucesso:', data)
+    return { data }
 }
