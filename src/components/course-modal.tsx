@@ -45,7 +45,6 @@ interface CourseModalProps {
     ) => void
 }
 
-
 const CourseModal: React.FC<CourseModalProps> = ({
     isOpen,
     editingCourse,
@@ -173,7 +172,9 @@ const CourseModal: React.FC<CourseModalProps> = ({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="duration">Duração em semanas *</Label>
+                                    <Label htmlFor="duration">
+                                        Duração em semanas *
+                                    </Label>
                                     <select
                                         id="duration"
                                         name="duration"

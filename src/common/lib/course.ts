@@ -12,14 +12,17 @@ interface FormData {
 const supabase = createClient()
 
 export async function createCourse(dataCourse: FormData, id_professor: string) {
-    const { data, error } = await supabase.from('courses').insert({
-        id: randomUUID,
-        title: dataCourse.title,
-        description: dataCourse.description,
-        category: dataCourse.category,
-        duration: dataCourse.duration,
-        status: dataCourse.status,
-    }).select()
+    const { data, error } = await supabase
+        .from('courses')
+        .insert({
+            id: randomUUID,
+            title: dataCourse.title,
+            description: dataCourse.description,
+            category: dataCourse.category,
+            duration: dataCourse.duration,
+            status: dataCourse.status,
+        })
+        .select()
 
     if (error) {
         console.error('Erro ao criar curso:', error)
@@ -28,18 +31,18 @@ export async function createCourse(dataCourse: FormData, id_professor: string) {
 
     // 2. Associar professor ao curso criado
     const { error: linkError } = await supabase
-        .from("teaches") // nome da tabela de relacionamento
+        .from('teaches') // nome da tabela de relacionamento
         .insert({
-        course_id: data[0].id,
-        teacher_id: id_professor,
+            course_id: data[0].id,
+            teacher_id: id_professor,
         })
 
     if (linkError) {
-        console.error("Erro ao associar professor:", linkError)
+        console.error('Erro ao associar professor:', linkError)
         return { error: linkError }
     }
 
-    console.log("Curso criado e professor associado:", data[0].title)
+    console.log('Curso criado e professor associado:', data[0].title)
     return { data: data[0] }
 }
 
@@ -100,11 +103,11 @@ export async function getProfessorCourses(id_professor: string) {
 }
 
 export async function deleteCourse(id_course: string) {
-   const { data, error } = await supabase
-    .from('courses')
-    .delete()
-    .eq('id', id_course);
-    
+    const { data, error } = await supabase
+        .from('courses')
+        .delete()
+        .eq('id', id_course)
+
     if (error) {
         console.error('Erro ao deletar curso:', error)
         return { error }
@@ -116,16 +119,16 @@ export async function deleteCourse(id_course: string) {
 
 export async function updateCourse(id: string, dataCourse: FormData) {
     const { data, error } = await supabase
-      .from('courses')
-      .update({ 
-        title: dataCourse.title,
-        description: dataCourse.description,
-        category: dataCourse.category,
-        duration: dataCourse.duration,
-        status: dataCourse.status,
-    })
-    .eq('id', id);
-    
+        .from('courses')
+        .update({
+            title: dataCourse.title,
+            description: dataCourse.description,
+            category: dataCourse.category,
+            duration: dataCourse.duration,
+            status: dataCourse.status,
+        })
+        .eq('id', id)
+
     if (error) {
         console.error('Erro ao editar curso:', error)
         return { error }

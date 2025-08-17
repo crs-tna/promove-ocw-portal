@@ -45,7 +45,6 @@ const CursosPage: React.FC = () => {
         status: 'Rascunho',
     })
 
-
     // Função centralizada para buscar os cursos e atualizar o estado
     const fetchCourses = async () => {
         setIsLoading(true)
