@@ -18,7 +18,6 @@ interface Course {
     category: string
     duration: string
     students: number
-    // status: 'Ativo' | 'Rascunho' | 'Arquivado' | 'Pausado'
     status: 'Ativo' | 'Rascunho' | 'Arquivado' | 'Pausado'
     created_at: string
 }

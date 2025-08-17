@@ -10,6 +10,7 @@ import {
 } from '@/src/components/ui/card'
 import CourseCard from './course-card'
 
+
 interface Course {
     id: number
     title: string
@@ -17,8 +18,8 @@ interface Course {
     category: string
     duration: string
     students: number
-    status: string
-    createdAt: string
+    status: 'Ativo' | 'Rascunho' | 'Arquivado' | 'Pausado'
+    created_at: string
 }
 
 interface CourseListProps {
