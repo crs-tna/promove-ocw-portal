@@ -37,7 +37,7 @@ interface CourseModalProps {
     editingCourse: Course | null
     formData: FormData
     onClose: () => void
-    onSubmit: () => void
+    onSubmit: () => void  // This will be called after successful save
     onInputChange: (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -50,6 +50,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
     editingCourse,
     formData,
     onClose,
+    onSubmit, 
     onInputChange,
 }) => {
     const categories = [
@@ -61,8 +62,11 @@ const CourseModal: React.FC<CourseModalProps> = ({
         'Teoria da Computação',
     ]
     const durations = [4, 8, 12, 16, 20]
+    
     // handleSubmit agora é assíncrono para esperar as operações do banco
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault() // Prevent default form submission
+        
         if (
             !formData.title ||
             !formData.description ||
@@ -75,19 +79,33 @@ const CourseModal: React.FC<CourseModalProps> = ({
 
         let operationError = null
 
-        if (editingCourse) {
-            // Chama a função de update para o Supabase
-            const { error } = await updateCourse(editingCourse.id, formData)
-            operationError = error
-        } else {
-            // Chama a função de create para o Supabase
-            const userId = await getUserIdByName('Vitória')
-            const { error } = await createCourse(formData, userId.id)
-            operationError = error
-        }
+        try {
+            if (editingCourse) {
+                // Chama a função de update para o Supabase
+                const { error } = await updateCourse(editingCourse.id, formData)
+                operationError = error
+            } else {
+                // Chama a função de create para o Supabase
+                const userId = await getUserIdByName('Vitória')
+               
+                // Verificar se o usuário foi encontrado
+                if (!userId || !userId.id) {
+                    alert('Usuário não encontrado. Não foi possível criar o curso.')
+                    return
+                }
+                const { error } = await createCourse(formData, userId.id)
+                operationError = error
+            }
 
-        if (operationError) {
-            alert('Ocorreu um erro ao salvar o curso.')
+            if (operationError) {
+                alert('Ocorreu um erro ao salvar o curso.')
+            } else {
+                // Call the parent's onSubmit callback on success
+                onSubmit()
+            }
+        } catch (err) {
+            console.error('Erro inesperado:', err)
+            alert('Ocorreu um erro inesperado.')
         }
     }
 

@@ -10,7 +10,7 @@ import CourseModal from '@/src/components/course-modal'
 import { getProfessorCourses, deleteCourse } from '@/src/common/lib/course'
 import { getUserIdByName } from '@/src/common/lib/users'
 
-// A interface do curso deve corresponder à estrutura de dados do Supabase
+// A interface do curso deve corresponder à estrutura esperada pelos componentes
 interface Course {
     id: number // ou string, dependendo do seu banco
     title: string
@@ -18,8 +18,8 @@ interface Course {
     category: string
     duration: string
     status: string
-    students_count?: number // Opcional, caso não tenha
-    created_at: string
+    students: number // Mudou de students_count para students
+    createdAt: string // Mudou de created_at para createdAt
 }
 
 // A interface do formulário continua a mesma
@@ -118,7 +118,7 @@ const CursosPage: React.FC = () => {
         setShowModal(true)
     }
 
-    // 8. handleDelete também se torna assíncrono
+    //handleDelete também se torna assíncrono
     const handleDelete = async (courseId: number) => {
         console.log(courseId)
         if (confirm('Tem certeza que deseja excluir este curso?')) {
@@ -141,6 +141,14 @@ const CursosPage: React.FC = () => {
             status: 'Rascunho',
         })
         setShowModal(true)
+    }
+
+    const handleModalSubmit = async () => {
+        // Refresh the courses list after successful save
+        await fetchCourses()
+        
+        // Close modal and reset form
+        resetForm()
     }
 
     // 9. Renderização condicional para estados de carregamento e erro
@@ -172,12 +180,13 @@ const CursosPage: React.FC = () => {
                     />
                 </main>
 
-                <CourseModal
+               <CourseModal
                     isOpen={showModal}
                     editingCourse={editingCourse}
                     formData={formData}
                     onClose={resetForm}
                     onInputChange={handleInputChange}
+                    onSubmit={handleModalSubmit} // Now properly connected
                 />
             </div>
         </ThemeProvider>

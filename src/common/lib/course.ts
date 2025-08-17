@@ -102,7 +102,7 @@ export async function getProfessorCourses(id_professor: string) {
     }
 }
 
-export async function deleteCourse(id_course: string) {
+export async function deleteCourse(id_course: number) {
     const { data, error } = await supabase
         .from('courses')
         .delete()
@@ -117,7 +117,7 @@ export async function deleteCourse(id_course: string) {
     return { data }
 }
 
-export async function updateCourse(id: string, dataCourse: FormData) {
+export async function updateCourse(id: number, dataCourse: FormData) {
     const { data, error } = await supabase
         .from('courses')
         .update({
