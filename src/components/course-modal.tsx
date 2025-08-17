@@ -37,7 +37,7 @@ interface CourseModalProps {
     editingCourse: Course | null
     formData: FormData
     onClose: () => void
-    onSubmit: () => void  // This will be called after successful save
+    onSubmit: () => void // This will be called after successful save
     onInputChange: (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -50,7 +50,7 @@ const CourseModal: React.FC<CourseModalProps> = ({
     editingCourse,
     formData,
     onClose,
-    onSubmit, 
+    onSubmit,
     onInputChange,
 }) => {
     const categories = [
@@ -62,11 +62,11 @@ const CourseModal: React.FC<CourseModalProps> = ({
         'Teoria da Computação',
     ]
     const durations = [4, 8, 12, 16, 20]
-    
+
     // handleSubmit agora é assíncrono para esperar as operações do banco
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault() // Prevent default form submission
-        
+
         if (
             !formData.title ||
             !formData.description ||
@@ -87,10 +87,12 @@ const CourseModal: React.FC<CourseModalProps> = ({
             } else {
                 // Chama a função de create para o Supabase
                 const userId = await getUserIdByName('Vitória')
-               
+
                 // Verificar se o usuário foi encontrado
                 if (!userId || !userId.id) {
-                    alert('Usuário não encontrado. Não foi possível criar o curso.')
+                    alert(
+                        'Usuário não encontrado. Não foi possível criar o curso.'
+                    )
                     return
                 }
                 const { error } = await createCourse(formData, userId.id)

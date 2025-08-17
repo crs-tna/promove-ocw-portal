@@ -146,7 +146,7 @@ const CursosPage: React.FC = () => {
     const handleModalSubmit = async () => {
         // Refresh the courses list after successful save
         await fetchCourses()
-        
+
         // Close modal and reset form
         resetForm()
     }
@@ -180,7 +180,7 @@ const CursosPage: React.FC = () => {
                     />
                 </main>
 
-               <CourseModal
+                <CourseModal
                     isOpen={showModal}
                     editingCourse={editingCourse}
                     formData={formData}
