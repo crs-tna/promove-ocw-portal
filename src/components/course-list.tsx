@@ -10,7 +10,6 @@ import {
 } from '@/src/components/ui/card'
 import CourseCard from './course-card'
 
-
 interface Course {
     id: number
     title: string
