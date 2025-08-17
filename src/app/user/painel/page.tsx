@@ -18,8 +18,8 @@ interface Course {
     category: string
     duration: string
     status: 'Ativo' | 'Rascunho' | 'Arquivado' | 'Pausado'
-    students: number 
-    created_at: string 
+    students: number
+    created_at: string
 }
 
 // A interface do formulário continua a mesma
