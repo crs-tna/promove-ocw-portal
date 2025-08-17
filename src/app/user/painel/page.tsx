@@ -45,36 +45,38 @@ const CursosPage: React.FC = () => {
         status: 'Rascunho',
     })
 
-// Função centralizada para buscar os cursos e atualizar o estado
-const fetchCourses = async () => {
-    setIsLoading(true)
-    
-    try {
-        const userId = await getUserIdByName('Vitória')
-        
-        // Verificar se o usuário foi encontrado
-        if (!userId || !userId.id) {
-            setError('Usuário não encontrado.')
+    // Função centralizada para buscar os cursos e atualizar o estado
+    const fetchCourses = async () => {
+        setIsLoading(true)
+
+        try {
+            const userId = await getUserIdByName('Vitória')
+
+            // Verificar se o usuário foi encontrado
+            if (!userId || !userId.id) {
+                setError('Usuário não encontrado.')
+                setIsLoading(false)
+                return
+            }
+
+            const { data, error } = await getProfessorCourses(userId.id)
+
+            if (error) {
+                console.error('Erro ao buscar cursos:', error)
+                setError(
+                    'Não foi possível carregar os cursos. Tente novamente.'
+                )
+            } else {
+                setCourses(data || [])
+                setError(null)
+            }
+        } catch (err) {
+            console.error('Erro inesperado:', err)
+            setError('Ocorreu um erro inesperado ao carregar os cursos.')
+        } finally {
             setIsLoading(false)
-            return
         }
-        
-        const { data, error } = await getProfessorCourses(userId.id)
-        
-        if (error) {
-            console.error('Erro ao buscar cursos:', error)
-            setError('Não foi possível carregar os cursos. Tente novamente.')
-        } else {
-            setCourses(data || [])
-            setError(null)
-        }
-    } catch (err) {
-        console.error('Erro inesperado:', err)
-        setError('Ocorreu um erro inesperado ao carregar os cursos.')
-    } finally {
-        setIsLoading(false)
     }
-}
 
     // useEffect para buscar os dados iniciais quando o componente é montado
     useEffect(() => {
