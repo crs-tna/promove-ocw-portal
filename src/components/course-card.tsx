@@ -125,11 +125,11 @@ const CourseCard: React.FC<CourseCardProps> = ({
             <CardContent className="pt-0">
                 <div className="space-y-3">
                     {/* Categoria */}
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-sm gap-3">
                         <span className="text-muted-foreground">
                             Categoria:
                         </span>
-                        <span className="font-medium text-foreground">
+                        <span className="font-medium text-foreground truncate">
                             {course.category}
                         </span>
                     </div>
@@ -141,7 +141,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                             Duração:
                         </span>
                         <span className="font-medium text-foreground">
-                            {course.duration}
+                            {course.duration} semanas
                         </span>
                     </div>
 
