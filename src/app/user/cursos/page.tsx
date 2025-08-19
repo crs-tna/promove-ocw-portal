@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { Suspense } from "react"
+import { Suspense } from 'react'
 import { ThemeProvider } from 'next-themes'
 import { ArrowLeft, Trash2, Users, Clock, Calendar, Tag } from 'lucide-react'
 import { getCourseById, deleteCourse } from '@/src/common/lib/course'
@@ -207,243 +207,245 @@ const CourseViewPage: React.FC = () => {
 
     return (
         <Suspense fallback={<div>Carregando curso...</div>}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="min-w-[600px] w-4/5 mx-auto px-6 py-8">
-                {/* Header */}
-                <header className="mb-8">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={handleBack}
-                                className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                title="Voltar"
-                            >
-                                <ArrowLeft className="h-5 w-5" />
-                            </button>
-                            <div className="display: contents">
-                                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                                    {course.title}
-                                </h1>
-                                <div className="flex items-center gap-2 mt-2">
-                                    <span
-                                        className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(course.status)}`}
-                                    >
-                                        {course.status}
-                                    </span>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <div className="min-w-[600px] w-4/5 mx-auto px-6 py-8">
+                    {/* Header */}
+                    <header className="mb-8">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={handleBack}
+                                    className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                    title="Voltar"
+                                >
+                                    <ArrowLeft className="h-5 w-5" />
+                                </button>
+                                <div className="display: contents">
+                                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                                        {course.title}
+                                    </h1>
+                                    <div className="flex items-center gap-2 mt-2">
+                                        <span
+                                            className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(course.status)}`}
+                                        >
+                                            {course.status}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="flex gap-3">
-                            <button
-                                onClick={handleDelete}
-                                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                            >
-                                <Trash2 className="h-4 w-4" />
-                                Excluir
-                            </button>
-                        </div>
-                    </div>
-                </header>
-
-                {/* Main Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Course Details */}
-                    <div className="lg:col-span-2">
-                        <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
-                            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                                Descrição do Curso
-                            </h2>
-                            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                {course.description ||
-                                    'Nenhuma descrição disponível.'}
-                            </p>
-                        </div>
-
-                        {/*Posts do curso */}
-                        <div className="mt-6 rounded-xl border bg-card text-card-foreground shadow p-6">
-                            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                                Atividades
-                            </h2>
-                            <div className="text-gray-600 dark:text-gray-300">
-                                {course.tasks ? (
-                                    <p>
-                                        Este curso contém {course.tasks.length}{' '}
-                                        tarefas.
-                                    </p>
-                                ) : (
-                                    <p>
-                                        Nunhuma atividade encontrada para o
-                                        curso.
-                                    </p>
-                                )}
-                                {course.progress && (
-                                    <div className="mt-4 space-y-3">
-                                        {mockActivities?.map((act) => (
-                                            <div
-                                                key={act.id}
-                                                className="p-3 border rounded-lg flex justify-between items-center"
-                                            >
-                                                <div>
-                                                    <p className="font-medium">
-                                                        {act.title}
-                                                    </p>
-                                                </div>
-                                                {act.deadline && (
-                                                    <span className="text-xs text-gray-400">
-                                                        Prazo:{' '}
-                                                        {formatDate(
-                                                            act.deadline
-                                                        )}
-                                                    </span>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={handleDelete}
+                                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                    Excluir
+                                </button>
                             </div>
                         </div>
+                    </header>
 
-                        {/* Additional Content Section */}
-                        <div className="mt-6 rounded-xl border bg-card text-card-foreground shadow p-6">
-                            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                                Conteúdo do Curso
-                            </h2>
-                            <div className="text-gray-600 dark:text-gray-300">
-                                {course.lessons?.length ? (
-                                    <p>
-                                        Este curso contém{' '}
-                                        {course.lessons.length} aulas.
-                                    </p>
-                                ) : (
-                                    <p>Conteúdo em desenvolvimento.</p>
-                                )}
-                                {course.progress && (
-                                    <ul className="mt-4 space-y-2">
-                                        {mockLessons?.map((lesson) => (
-                                            <li
-                                                key={lesson.id}
-                                                className="flex justify-between items-center border p-2 rounded-lg"
-                                            >
-                                                <span>
-                                                    {lesson.title}
-                                                    {lesson.isPreview && (
-                                                        <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">
-                                                            Preview
+                    {/* Main Content */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        {/* Course Details */}
+                        <div className="lg:col-span-2">
+                            <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                                    Descrição do Curso
+                                </h2>
+                                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                                    {course.description ||
+                                        'Nenhuma descrição disponível.'}
+                                </p>
+                            </div>
+
+                            {/*Posts do curso */}
+                            <div className="mt-6 rounded-xl border bg-card text-card-foreground shadow p-6">
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                                    Atividades
+                                </h2>
+                                <div className="text-gray-600 dark:text-gray-300">
+                                    {course.tasks ? (
+                                        <p>
+                                            Este curso contém{' '}
+                                            {course.tasks.length} tarefas.
+                                        </p>
+                                    ) : (
+                                        <p>
+                                            Nunhuma atividade encontrada para o
+                                            curso.
+                                        </p>
+                                    )}
+                                    {course.progress && (
+                                        <div className="mt-4 space-y-3">
+                                            {mockActivities?.map((act) => (
+                                                <div
+                                                    key={act.id}
+                                                    className="p-3 border rounded-lg flex justify-between items-center"
+                                                >
+                                                    <div>
+                                                        <p className="font-medium">
+                                                            {act.title}
+                                                        </p>
+                                                    </div>
+                                                    {act.deadline && (
+                                                        <span className="text-xs text-gray-400">
+                                                            Prazo:{' '}
+                                                            {formatDate(
+                                                                act.deadline
+                                                            )}
                                                         </span>
                                                     )}
-                                                </span>
-                                                <span className="text-sm text-gray-500">
-                                                    {lesson.duration}
-                                                </span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Additional Content Section */}
+                            <div className="mt-6 rounded-xl border bg-card text-card-foreground shadow p-6">
+                                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                                    Conteúdo do Curso
+                                </h2>
+                                <div className="text-gray-600 dark:text-gray-300">
+                                    {course.lessons?.length ? (
+                                        <p>
+                                            Este curso contém{' '}
+                                            {course.lessons.length} aulas.
+                                        </p>
+                                    ) : (
+                                        <p>Conteúdo em desenvolvimento.</p>
+                                    )}
+                                    {course.progress && (
+                                        <ul className="mt-4 space-y-2">
+                                            {mockLessons?.map((lesson) => (
+                                                <li
+                                                    key={lesson.id}
+                                                    className="flex justify-between items-center border p-2 rounded-lg"
+                                                >
+                                                    <span>
+                                                        {lesson.title}
+                                                        {lesson.isPreview && (
+                                                            <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">
+                                                                Preview
+                                                            </span>
+                                                        )}
+                                                    </span>
+                                                    <span className="text-sm text-gray-500">
+                                                        {lesson.duration}
+                                                    </span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Sidebar */}
-                    <div className="space-y-6">
-                        {/* Course Stats */}
-                        <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
-                            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-                                Informações do Curso
-                            </h3>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-3">
-                                    <Users className="h-5 w-5 text-blue-600" />
-                                    <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Estudantes
-                                        </p>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
-                                            {course.students}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <Clock className="h-5 w-5 text-green-600" />
-                                    <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Duração
-                                        </p>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
-                                            {course.duration}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <Tag className="h-5 w-5 text-purple-600" />
-                                    <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Categoria
-                                        </p>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
-                                            {course.category}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <Calendar className="h-5 w-5 text-orange-600" />
-                                    <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                            Criado em
-                                        </p>
-                                        <p className="font-semibold text-gray-900 dark:text-white">
-                                            {formatDate(course.created_at)}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {course.updated_at && (
+                        {/* Sidebar */}
+                        <div className="space-y-6">
+                            {/* Course Stats */}
+                            <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
+                                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+                                    Informações do Curso
+                                </h3>
+                                <div className="space-y-4">
                                     <div className="flex items-center gap-3">
-                                        <Calendar className="h-5 w-5 text-gray-600" />
+                                        <Users className="h-5 w-5 text-blue-600" />
                                         <div>
                                             <p className="text-sm text-gray-500 dark:text-gray-400">
-                                                Atualizado em
+                                                Estudantes
                                             </p>
                                             <p className="font-semibold text-gray-900 dark:text-white">
-                                                {formatDate(course.updated_at)}
+                                                {course.students}
                                             </p>
                                         </div>
                                     </div>
-                                )}
-                            </div>
-                        </div>
 
-                        {/* Professor Info (if available) */}
-                        {course.professor_name && (
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                                    <div className="flex items-center gap-3">
+                                        <Clock className="h-5 w-5 text-green-600" />
+                                        <div>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                Duração
+                                            </p>
+                                            <p className="font-semibold text-gray-900 dark:text-white">
+                                                {course.duration}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <Tag className="h-5 w-5 text-purple-600" />
+                                        <div>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                Categoria
+                                            </p>
+                                            <p className="font-semibold text-gray-900 dark:text-white">
+                                                {course.category}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <Calendar className="h-5 w-5 text-orange-600" />
+                                        <div>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                Criado em
+                                            </p>
+                                            <p className="font-semibold text-gray-900 dark:text-white">
+                                                {formatDate(course.created_at)}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {course.updated_at && (
+                                        <div className="flex items-center gap-3">
+                                            <Calendar className="h-5 w-5 text-gray-600" />
+                                            <div>
+                                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                    Atualizado em
+                                                </p>
+                                                <p className="font-semibold text-gray-900 dark:text-white">
+                                                    {formatDate(
+                                                        course.updated_at
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Professor Info (if available) */}
+                            {course.professor_name && (
+                                <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                                    <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+                                        Professor
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-300">
+                                        {course.professor_name}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Quick Actions */}
+                            <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
                                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-                                    Professor
+                                    Ações Rápidas
                                 </h3>
-                                <p className="text-gray-600 dark:text-gray-300">
-                                    {course.professor_name}
-                                </p>
-                            </div>
-                        )}
-
-                        {/* Quick Actions */}
-                        <div className="rounded-xl border bg-card text-card-foreground shadow p-6">
-                            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-                                Ações Rápidas
-                            </h3>
-                            <div className="space-y-3">
-                                <button className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                                    <Users className="h-4 w-4" />
-                                    Gerenciar Estudantes
-                                </button>
+                                <div className="space-y-3">
+                                    <button className="w-full flex items-center gap-2 px-4 py-2 text-left text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                        <Users className="h-4 w-4" />
+                                        Gerenciar Estudantes
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </ThemeProvider>
+            </ThemeProvider>
         </Suspense>
     )
 }
