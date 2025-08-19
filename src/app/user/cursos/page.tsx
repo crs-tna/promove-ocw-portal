@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import { Suspense } from "react"
 import { ThemeProvider } from 'next-themes'
 import { ArrowLeft, Trash2, Users, Clock, Calendar, Tag } from 'lucide-react'
 import { getCourseById, deleteCourse } from '@/src/common/lib/course'
@@ -205,6 +206,7 @@ const CourseViewPage: React.FC = () => {
     }
 
     return (
+        <Suspense fallback={<div>Carregando curso...</div>}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="min-w-[600px] w-4/5 mx-auto px-6 py-8">
                 {/* Header */}
@@ -442,6 +444,7 @@ const CourseViewPage: React.FC = () => {
                 </div>
             </div>
         </ThemeProvider>
+        </Suspense>
     )
 }
 
