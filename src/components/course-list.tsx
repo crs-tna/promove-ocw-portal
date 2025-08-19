@@ -25,6 +25,7 @@ interface CourseListProps {
     courses: Course[]
     onEdit: (course: Course) => void
     onDelete: (courseId: number) => void
+    onView: (courseId: number) => void // Adicionei esta prop
     onCreateNew: () => void
 }
 
@@ -32,6 +33,7 @@ const CourseList: React.FC<CourseListProps> = ({
     courses,
     onEdit,
     onDelete,
+    onView, // Adicionei aqui
     onCreateNew,
 }) => {
     return (
@@ -70,9 +72,10 @@ const CourseList: React.FC<CourseListProps> = ({
                         {courses.map((course) => (
                             <CourseCard
                                 key={course.id}
-                                course={course} // Type assertion
+                                course={course}
                                 onEdit={onEdit}
                                 onDelete={onDelete}
+                                onView={onView} // Passo a função para o CourseCard
                             />
                         ))}
                     </div>

@@ -117,6 +117,21 @@ export async function deleteCourse(id_course: number) {
     return { data }
 }
 
+export async function getCourseById(id_course: string) {
+    const { data, error } = await supabase
+        .from('courses')
+        .select()
+        .eq('id', id_course)
+
+    if (error) {
+        console.error('Erro ao retornar curso:', error)
+        return { error }
+    }
+
+    console.log('Curso acessado com sucesso:', data)
+    return { data }
+}
+
 export async function updateCourse(id: number, dataCourse: FormData) {
     const { data, error } = await supabase
         .from('courses')

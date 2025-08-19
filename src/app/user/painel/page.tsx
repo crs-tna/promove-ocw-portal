@@ -1,18 +1,17 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation' // Mudança aqui
 import { ThemeProvider } from 'next-themes'
 import CourseHeader from '@/src/components/course-header'
 import CourseStats from '@/src/components/course-stats'
 import CourseList from '@/src/components/course-list'
 import CourseModal from '@/src/components/course-modal'
-// 1. Importe todas as funções necessárias para as operações CRUD
 import { getProfessorCourses, deleteCourse } from '@/src/common/lib/course'
 import { getUserIdByName } from '@/src/common/lib/users'
 
-// A interface do curso deve corresponder à estrutura esperada pelos componentes
 interface Course {
-    id: number // ou string, dependendo do seu banco
+    id: number
     title: string
     description: string
     category: string
@@ -22,7 +21,6 @@ interface Course {
     created_at: string
 }
 
-// A interface do formulário continua a mesma
 interface FormData {
     title: string
     description: string
@@ -32,6 +30,7 @@ interface FormData {
 }
 
 const CursosPage: React.FC = () => {
+    const router = useRouter() // Hook do Next.js para navegação
     const [courses, setCourses] = useState<Course[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null)
@@ -45,14 +44,17 @@ const CursosPage: React.FC = () => {
         status: 'Rascunho',
     })
 
-    // Função centralizada para buscar os cursos e atualizar o estado
+    // Função para navegar para visualizar o curso
+    const handleViewCourse = (courseId: number) => {
+        router.push(`/user/cursos?courseId=${courseId}`)
+    }
+
     const fetchCourses = async () => {
         setIsLoading(true)
 
         try {
             const userId = await getUserIdByName('Vitória')
 
-            // Verificar se o usuário foi encontrado
             if (!userId || !userId.id) {
                 setError('Usuário não encontrado.')
                 setIsLoading(false)
@@ -78,10 +80,9 @@ const CursosPage: React.FC = () => {
         }
     }
 
-    // useEffect para buscar os dados iniciais quando o componente é montado
     useEffect(() => {
         fetchCourses()
-    }, []) // O array vazio [] garante que isso rode apenas uma vez
+    }, [])
 
     const handleInputChange = (
         e: React.ChangeEvent<
@@ -118,7 +119,6 @@ const CursosPage: React.FC = () => {
         setShowModal(true)
     }
 
-    //handleDelete também se torna assíncrono
     const handleDelete = async (courseId: number) => {
         console.log(courseId)
         if (confirm('Tem certeza que deseja excluir este curso?')) {
@@ -126,7 +126,7 @@ const CursosPage: React.FC = () => {
             if (error) {
                 alert('Ocorreu um erro ao excluir o curso.')
             } else {
-                await fetchCourses() // Atualiza a lista após a exclusão
+                await fetchCourses()
             }
         }
     }
@@ -144,14 +144,10 @@ const CursosPage: React.FC = () => {
     }
 
     const handleModalSubmit = async () => {
-        // Refresh the courses list after successful save
         await fetchCourses()
-
-        // Close modal and reset form
         resetForm()
     }
 
-    // 9. Renderização condicional para estados de carregamento e erro
     if (isLoading) {
         return <div className="text-center py-10">Carregando cursos...</div>
     }
@@ -176,6 +172,7 @@ const CursosPage: React.FC = () => {
                         courses={courses}
                         onEdit={handleEdit}
                         onDelete={handleDelete}
+                        onView={handleViewCourse} // Mudança aqui
                         onCreateNew={handleCreateNew}
                     />
                 </main>
@@ -186,7 +183,7 @@ const CursosPage: React.FC = () => {
                     formData={formData}
                     onClose={resetForm}
                     onInputChange={handleInputChange}
-                    onSubmit={handleModalSubmit} // Now properly connected
+                    onSubmit={handleModalSubmit}
                 />
             </div>
         </ThemeProvider>

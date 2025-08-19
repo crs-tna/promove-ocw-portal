@@ -9,7 +9,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/src/components/ui/card'
-import { Edit, Trash2, Users, Clock, Calendar, BookOpen } from 'lucide-react'
+import { Edit, Trash2, Users, Clock, Calendar, BookOpen, Eye } from 'lucide-react'
 
 interface Course {
     id: number
@@ -26,6 +26,7 @@ interface CourseCardProps {
     course: Course
     onEdit: (course: Course) => void
     onDelete: (courseId: number) => void
+    onView: (courseId: number) => void // Adicionei esta prop
     className?: string
 }
 
@@ -52,10 +53,12 @@ const CourseCard: React.FC<CourseCardProps> = ({
     course,
     onEdit,
     onDelete,
+    onView, // Adicionei aqui
     className,
 }) => {
     const handleEdit = () => onEdit(course)
     const handleDelete = () => onDelete(course.id)
+    const handleView = () => onView(course.id) // Nova função
 
     const statusConfig = STATUS_CONFIG[course.status] || STATUS_CONFIG.Rascunho
     const StatusIcon = statusConfig.icon
@@ -71,9 +74,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
     return (
         <Card
             className={cn(
-                'group hover:shadow-lg transition-all duration-200 hover:-translate-y-1',
+                'group hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer',
                 className
             )}
+            onClick={handleView} // Torna o card inteiro clicável
         >
             <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
@@ -90,7 +94,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                                 {course.status}
                             </Badge>
                         </div>
-                        <CardTitle className="text-lg leading-6 truncate">
+                        <CardTitle className="text-lg leading-6 truncate hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             {course.title}
                         </CardTitle>
                         <CardDescription className="mt-1 line-clamp-2 text-sm">
@@ -102,7 +106,22 @@ const CourseCard: React.FC<CourseCardProps> = ({
                         <Button
                             variant="ghost"
                             size="sm"
-                            onClick={handleEdit}
+                            onClick={(e) => {
+                                e.stopPropagation() // Evita que o clique no botão acione o clique do card
+                                handleView()
+                            }}
+                            className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950"
+                            title="Visualizar curso"
+                        >
+                            <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleEdit()
+                            }}
                             className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950"
                             title="Editar curso"
                         >
@@ -111,7 +130,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
                         <Button
                             variant="ghost"
                             size="sm"
-                            onClick={handleDelete}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete()
+                            }}
                             className="h-8 w-8 p-0 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950"
                             title="Excluir curso"
                         >
@@ -140,7 +162,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                             Duração:
                         </span>
                         <span className="font-medium text-foreground">
-                            {course.duration} semanas
+                            {course.duration}
                         </span>
                     </div>
 
@@ -172,7 +194,22 @@ const CourseCard: React.FC<CourseCardProps> = ({
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={handleEdit}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            handleView()
+                        }}
+                        className="flex-1"
+                    >
+                        <Eye className="h-4 w-4 mr-2" />
+                        Ver
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            handleEdit()
+                        }}
                         className="flex-1"
                     >
                         <Edit className="h-4 w-4 mr-2" />
@@ -181,7 +218,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={handleDelete}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            handleDelete()
+                        }}
                         className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
                     >
                         <Trash2 className="h-4 w-4" />
