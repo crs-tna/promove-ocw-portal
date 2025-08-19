@@ -112,7 +112,8 @@ const CourseViewPage: React.FC = () => {
             setCourse({
                 id: 999,
                 title: 'Curso de React com Next.js',
-                description: 'Aprenda os fundamentos do React e do Next.js com exemplos práticos.',
+                description:
+                    'Aprenda os fundamentos do React e do Next.js com exemplos práticos.',
                 category: 'Programação',
                 duration: '12h',
                 status: 'Ativo',
@@ -122,7 +123,7 @@ const CourseViewPage: React.FC = () => {
                 updated_at: new Date().toISOString(),
                 lessons: mockLessons,
                 progress: 60,
-                tasks: mockActivities
+                tasks: mockActivities,
             })
             setIsLoading(false)
         }
@@ -309,8 +310,8 @@ const CourseViewPage: React.FC = () => {
                             <div className="text-gray-600 dark:text-gray-300">
                                 {course.lessons?.length ? (
                                     <p>
-                                        Este curso contém {course.lessons.length}{' '}
-                                        aulas.
+                                        Este curso contém{' '}
+                                        {course.lessons.length} aulas.
                                     </p>
                                 ) : (
                                     <p>Conteúdo em desenvolvimento.</p>

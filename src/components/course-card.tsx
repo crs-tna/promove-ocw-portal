@@ -9,7 +9,15 @@ import {
     CardHeader,
     CardTitle,
 } from '@/src/components/ui/card'
-import { Edit, Trash2, Users, Clock, Calendar, BookOpen, Eye } from 'lucide-react'
+import {
+    Edit,
+    Trash2,
+    Users,
+    Clock,
+    Calendar,
+    BookOpen,
+    Eye,
+} from 'lucide-react'
 
 interface Course {
     id: number
