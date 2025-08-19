@@ -1,7 +1,7 @@
 import { getAllCourses } from '../../../common/lib/course'
 import CourseListClient from '../cursos/courseClient'
 
-export default async function UserCursosPage() {
+export default async function UserCoursesPage() {
     const { data: courses, error } = await getAllCourses()
 
     if (error) {
