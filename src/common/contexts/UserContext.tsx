@@ -19,6 +19,7 @@ interface FullUserData {
     last_name: string
     dre: string | null
     role: UserRole
+    user_image: string
     created_at: string
 }
 
