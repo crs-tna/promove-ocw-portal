@@ -36,8 +36,10 @@ const montserrat = Montserrat({
 
 export default function RootLayout({
     children,
+    modal,
 }: Readonly<{
     children: React.ReactNode
+    modal: React.ReactNode
 }>) {
     return (
         <html
@@ -55,7 +57,11 @@ export default function RootLayout({
                     <div className="min-h-screen flex flex-col">
                         <UserContextProvider>
                             <Header />
-                            <main className="flex-1 w-full">{children}</main>
+                            <main className="flex-1 w-full">
+                                {children}
+                                {modal}
+                                <div id="modal-root" />
+                            </main>
                         </UserContextProvider>
                     </div>
                 </ThemeProvider>
