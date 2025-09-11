@@ -1,33 +1,14 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/src/common/lib/supabase/server'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+'use client'
 
-// TODO: implement user homepage (specific for logged in users)
-// WARN: do not make this a client file, only manipulate states inside components, please.
+import { TeacherHomePage } from '@/src/components/user-home-layouts/teacher-home'
+import { StudentHomePage } from '@/src/components/user-home-layouts/student-home'
+import { useUser } from '@/src/common/contexts/UserContext'
 
-export default async function UserHomePage() {
-    const supabase = await createClient()
+export default function UserHomePage() {
+    const { user, role } = useUser()
 
-    const { data, error } = await supabase.auth.getUser()
-    if (error || !data?.user) {
-        redirect('/auth/login')
-    }
+    if (!user) return null // ou loading/spinner
 
-    return (
-        <div className="flex-1 w-full flex flex-col gap-12">
-            <div className="w-full">
-                <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3">
-                    <InfoOutlinedIcon sx={{ fontSize: '16px' }} />
-                    This is a protected page that you can only see as an
-                    authenticated user
-                </div>
-            </div>
-            <div className="flex flex-col gap-2 items-start">
-                <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-                <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-                    {JSON.stringify(data.user, null, 2)}
-                </pre>
-            </div>
-        </div>
-    )
+    if (role === 'professor') return <TeacherHomePage user={user} />
+    return <StudentHomePage user={user} />
 }
