@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Readex_Pro, Roboto, Montserrat } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -10,6 +9,7 @@ import '@fontsource/roboto/700.css'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/src/components/ui/header'
 import { UserContextProvider } from '../common/contexts/UserContext'
+import { AppThemeProvider } from '../common/contexts/ThemeProvider'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -48,12 +48,7 @@ export default function RootLayout({
         >
             <body className="font-body antialiased">
                 <Analytics />
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
+                <AppThemeProvider>
                     <div className="min-h-screen flex flex-col">
                         <UserContextProvider>
                             <Header />
@@ -64,7 +59,7 @@ export default function RootLayout({
                             </main>
                         </UserContextProvider>
                     </div>
-                </ThemeProvider>
+                </AppThemeProvider>
             </body>
         </html>
     )
