@@ -106,43 +106,43 @@ export async function updateSession(request: NextRequest) {
         return supabaseResponse
     }
 
-    // Rotas públicas
-    if (matchesRoute(PERMISSIONS_CONFIG.publicRoutes)) {
-        return supabaseResponse
-    }
+    // // Rotas públicas
+    // if (matchesRoute(PERMISSIONS_CONFIG.publicRoutes)) {
+    //     return supabaseResponse
+    // }
 
-    // Usuário não logado tentando acessar alguma rota não pública e não auth
-    if (!user) {
-        return redirect(PERMISSIONS_CONFIG.redirects.unauthenticated, pathname)
-    }
+    // // Usuário não logado tentando acessar alguma rota não pública e não auth
+    // if (!user) {
+    //     return redirect(PERMISSIONS_CONFIG.redirects.unauthenticated, pathname)
+    // }
 
-    const { data: profile, error: profileError } = await supabase
-        .from('users')
-        .select('role_id')
-        .eq('id', user.id)
-        .single()
+    // const { data: profile, error: profileError } = await supabase
+    //     .from('users')
+    //     .select('role_id')
+    //     .eq('id', user.id)
+    //     .single()
 
-    // Houve algum erro ao determinar papel do usuário
-    if (!profile || profileError) {
-        console.error(profileError)
-        return redirect(PERMISSIONS_CONFIG.redirects.unauthenticated, pathname)
-    }
+    // // Houve algum erro ao determinar papel do usuário
+    // if (!profile || profileError) {
+    //     console.error(profileError)
+    //     return redirect(PERMISSIONS_CONFIG.redirects.unauthenticated, pathname)
+    // }
 
-    // Usuário logado tenta acessar rotas que ele não tem permissão
-    const restrictedRoute = Object.keys(
-        PERMISSIONS_CONFIG.restrictedRoutes
-    ).find((route) => pathname === route || pathname.startsWith(`${route}/`))
+    // // Usuário logado tenta acessar rotas que ele não tem permissão
+    // const restrictedRoute = Object.keys(
+    //     PERMISSIONS_CONFIG.restrictedRoutes
+    // ).find((route) => pathname === route || pathname.startsWith(`${route}/`))
 
-    if (restrictedRoute) {
-        if (
-            !PERMISSIONS_CONFIG.restrictedRoutes[restrictedRoute].includes(
-                profile.role_id
-            )
-        ) {
-            return redirect(PERMISSIONS_CONFIG.redirects.unauthorized)
-        }
-        return supabaseResponse
-    }
+    // if (restrictedRoute) {
+    //     if (
+    //         !PERMISSIONS_CONFIG.restrictedRoutes[restrictedRoute].includes(
+    //             profile.role_id
+    //         )
+    //     ) {
+    //         return redirect(PERMISSIONS_CONFIG.redirects.unauthorized)
+    //     }
+    //     return supabaseResponse
+    // }
 
     // IMPORTANT: You *must* return the supabaseResponse object as it is.
     // If you're creating a new response object with NextResponse.next() make sure to:

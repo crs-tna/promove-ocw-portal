@@ -1,5 +1,5 @@
-import { getAllCourses } from '../../../common/lib/course'
-import CourseListClient from '../cursos/courseClient'
+import { getAllCourses } from '../../common/lib/course'
+import CourseListClient from './courseClient'
 
 export default async function UserCoursesPage() {
     const { data: courses, error } = await getAllCourses()
