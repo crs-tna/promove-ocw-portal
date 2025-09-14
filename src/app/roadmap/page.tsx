@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 
-export default function Sobre() {
+export default function Roadmap() {
     return (
         <Box>
             <Typography>Roadmap</Typography>
