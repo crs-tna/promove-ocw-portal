@@ -10,6 +10,7 @@ import { Analytics } from '@vercel/analytics/next'
 import Header from '@/src/components/ui/header'
 import { UserContextProvider } from '../common/contexts/UserContext'
 import { AppThemeProvider } from '../common/contexts/ThemeProvider'
+import Footer from '../components/ui/footer'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -57,6 +58,7 @@ export default function RootLayout({
                                 {modal}
                                 <div id="modal-root" />
                             </main>
+                            <Footer />
                         </UserContextProvider>
                     </div>
                 </AppThemeProvider>

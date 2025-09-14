@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { ThemeSwitcher } from '../theme-switcher'
 import { PromoveLogo } from '../promove-logo'
-import { LogoutButton } from '../logout-button'
 import { useUser } from '@/src/common/contexts/UserContext'
+import { UserDropdown } from '../user-dropdown'
+import { DropdownMenu } from './dropdown-menu'
 
 export default function Header() {
     const { loggedIn } = useUser()
@@ -16,10 +16,8 @@ export default function Header() {
                     </Link>
                 </div>
                 <div className="flex gap-5 items-center font-semibold">
-                    {loggedIn ? <LogoutButton /> : null}
-
-                    <ThemeSwitcher />
-                    {/* {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />} */}
+                    {loggedIn ? <UserDropdown /> : null}
+                    <DropdownMenu />
                 </div>
             </div>
         </nav>

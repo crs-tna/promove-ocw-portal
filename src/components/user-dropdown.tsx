@@ -25,7 +25,6 @@ import {
     LogOut,
     Calendar,
     BookOpen,
-    Compass,
 } from 'lucide-react'
 import { useThemeMode } from '../common/contexts/ThemeProvider'
 
@@ -60,11 +59,6 @@ export const UserDropdown = () => {
             label: 'Calendário',
             icon: <Calendar size={16} />,
         },
-        {
-            onClick: () => router.push('/explore'),
-            label: 'Explorar cursos',
-            icon: <Compass size={16} />,
-        },
     ]
 
     const themes = [
@@ -96,7 +90,7 @@ export const UserDropdown = () => {
 
     function stringAvatar(name: string) {
         return {
-            sx: { bgcolor: stringToColor(name) },
+            sx: { bgcolor: stringToColor(name), width: '2rem', height: '2rem' },
             children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
         }
     }
@@ -115,9 +109,19 @@ export const UserDropdown = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                sx={{
+                    '&:hover': {
+                        backgroundColor: 'transparent',
+                        borderColor: 'transparent',
+                        boxShadow: 'none',
+                    },
+                }}
             >
                 {profile?.user_image ? (
-                    <Avatar src={profile.user_image} />
+                    <Avatar
+                        src={profile.user_image}
+                        sx={{ width: '2rem', height: '2rem' }}
+                    />
                 ) : (
                     <Avatar
                         {...stringAvatar(
@@ -135,7 +139,6 @@ export const UserDropdown = () => {
             >
                 <Box sx={{ width: 250 }}>
                     <MenuList dense>
-                        {/* Header */}
                         <Box sx={{ px: 2, py: 1 }}>
                             <Typography variant="body2" fontWeight={500}>
                                 {profile?.first_name} {profile?.last_name}
@@ -150,7 +153,6 @@ export const UserDropdown = () => {
 
                         <Divider />
 
-                        {/* Menu principal */}
                         {menuItems.map((item) => (
                             <MenuItem
                                 key={item.label}
@@ -168,7 +170,6 @@ export const UserDropdown = () => {
 
                         <Divider />
 
-                        {/* Tema */}
                         <Box sx={{ px: 2, py: 1 }}>
                             <Typography
                                 variant="body2"
@@ -202,7 +203,6 @@ export const UserDropdown = () => {
 
                         <Divider />
 
-                        {/* Logout */}
                         <MenuItem onClick={logout} sx={{ px: 2, py: 1 }}>
                             <ListItemIcon sx={{ minWidth: 20 }}>
                                 <LogOut size={16} />
