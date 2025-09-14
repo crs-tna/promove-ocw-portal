@@ -162,7 +162,7 @@ export function SignUpForm({
                                     <Checkbox
                                         id="isStudent"
                                         checked={isStudent}
-                                        onCheckedChange={(checked) =>
+                                        onChange={(checked) =>
                                             setIsStudent(!!checked)
                                         }
                                     />
