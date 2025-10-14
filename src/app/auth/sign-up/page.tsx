@@ -1,11 +1,21 @@
-import { SignUpForm } from '@/src/components/sign-up-form'
+import { Box, Container } from '@mui/material'
+import { SignUpForm } from '../../../components/sign-up-form'
 
 export default function Page() {
     return (
-        <div className="h-svh w-full flex justify-center items-center p-6 md:p-10">
-            <div className="w-full max-w-md">
+        <Box
+            sx={{
+                display: 'flex',
+                minHeight: '100svh',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: { xs: 3, md: 5 },
+            }}
+        >
+            <Container maxWidth="sm">
                 <SignUpForm />
-            </div>
-        </div>
+            </Container>
+        </Box>
     )
 }

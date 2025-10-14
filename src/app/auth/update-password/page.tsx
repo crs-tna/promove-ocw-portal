@@ -1,11 +1,21 @@
-import { UpdatePasswordForm } from '@/src/components/update-password-form'
+import { Box, Container } from '@mui/material'
+import { UpdatePasswordForm } from '../../../components/update-password-form'
 
 export default function Page() {
     return (
-        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-            <div className="w-full max-w-sm">
+        <Box
+            sx={{
+                display: 'flex',
+                minHeight: '100svh',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: { xs: 3, md: 5 },
+            }}
+        >
+            <Container maxWidth="xs">
                 <UpdatePasswordForm />
-            </div>
-        </div>
+            </Container>
+        </Box>
     )
 }

@@ -18,7 +18,7 @@ module.exports = {
         'no-console': ['warn'],
         eqeqeq: ['error', 'always'],
         curly: ['error', 'all'],
-        'no-var': 'warn',
+        'no-var': 'error',
         'prefer-const': 'error',
     },
 }

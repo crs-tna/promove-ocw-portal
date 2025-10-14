@@ -2,8 +2,10 @@ import {
     Card,
     CardContent,
     CardHeader,
-    CardTitle,
-} from '@/src/components/ui/card'
+    Typography,
+    Box,
+    Container,
+} from '@mui/material'
 
 export default async function Page({
     searchParams,
@@ -13,29 +15,63 @@ export default async function Page({
     const params = await searchParams
 
     return (
-        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-            <div className="w-full max-w-sm">
-                <div className="flex flex-col gap-6">
-                    <Card>
+        <Box
+            sx={{
+                display: 'flex',
+                minHeight: '100svh',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: { xs: 3, md: 5 },
+            }}
+        >
+            <Container maxWidth="xs">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    <Card
+                        sx={{
+                            boxShadow: 2,
+                            borderRadius: 2,
+                        }}
+                    >
                         <CardHeader>
-                            <CardTitle className="text-2xl">
-                                Sorry, something went wrong.
-                            </CardTitle>
+                            <Typography
+                                variant="h4"
+                                component="h1"
+                                sx={{
+                                    fontSize: '1.5rem',
+                                    fontWeight: 'bold',
+                                    color: 'text.primary',
+                                }}
+                            >
+                                Desculpe, algo de errado aconteceu.
+                            </Typography>
                         </CardHeader>
                         <CardContent>
                             {params?.error ? (
-                                <p className="text-sm text-muted-foreground">
-                                    Code error: {params.error}
-                                </p>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: 'text.secondary',
+                                        fontSize: '0.875rem',
+                                    }}
+                                >
+                                    Código do erro: {params.error}
+                                </Typography>
                             ) : (
-                                <p className="text-sm text-muted-foreground">
-                                    An unspecified error occurred.
-                                </p>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: 'text.secondary',
+                                        fontSize: '0.875rem',
+                                    }}
+                                >
+                                    Ocorreu um erro não especificado.
+                                </Typography>
                             )}
                         </CardContent>
                     </Card>
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Container>
+        </Box>
     )
 }

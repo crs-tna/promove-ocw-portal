@@ -1,11 +1,22 @@
-import { LoginForm } from '@/src/components/login-form'
+
+import { Box, Container } from '@mui/material'
+import { LoginForm } from '../../../components/login-form'
 
 export default function Page() {
     return (
-        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-            <div className="w-full max-w-sm">
+        <Box
+            sx={{
+                display: 'flex',
+                minHeight: '100svh',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                p: { xs: 3, md: 5 },
+            }}
+        >
+            <Container maxWidth="xs">
                 <LoginForm />
-            </div>
-        </div>
+            </Container>
+        </Box>
     )
 }

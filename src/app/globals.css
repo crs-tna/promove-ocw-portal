@@ -1,94 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Material UI will handle most styling via CssBaseline, but we keep some essential overrides */
 
-@layer base {
-    :root {
-        /* Projeto de extensão - claro */
-        --background: 36 0% 95%; /* #f2f2f2 */
-        --foreground: 36 14% 7%; /* #14120f */
+:root {
+  /* Project colors - will be handled by Material UI theme */
+  --primary: #ff6600;
+  --secondary: #75138d;
+  --tertiary: #d1d500;
+}
 
-        --primary: 24 100% 50%; /* #ff6600 */
-        --primary-foreground: 0 0% 100%; /* #fff */
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 
-        --secondary: 285 76% 31%; /* #75138d */
-        --secondary-foreground: 0 0% 100%;
+/* Material UI CssBaseline will handle most of body styling */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-        --tertiary: 63 100% 41%; /* #d1d500 */
-        --tertiary-foreground: 0 0% 0%;
+* {
+  box-sizing: border-box;
+}
 
-        --card: 0 0% 100%;
-        --card-foreground: 40 6% 5%;
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 40 6% 5%;
+/* Custom utility classes that might be needed */
+.text-primary {
+  color: #ff6600;
+}
 
-        --muted: 240 4% 90%;
-        --muted-foreground: 240 4% 40%;
+.text-secondary {
+  color: #75138d;
+}
 
-        --accent: 240 4% 90%;
-        --accent-foreground: 240 4% 20%;
+.text-tertiary {
+  color: #d1d500;
+}
 
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 100%;
+.bg-primary {
+  background-color: #ff6600;
+}
 
-        --border: 240 5% 85%;
-        --input: 240 5% 85%;
-        --ring: 24 100% 60%; /* usar cor primária como ring */
+.bg-secondary {
+  background-color: #75138d;
+}
 
-        --chart-1: 24 100% 50%;
-        --chart-2: 285 76% 31%;
-        --chart-3: 63 100% 41%;
-        --chart-4: 210 100% 20%; /* #003366 */
-        --chart-5: 36 14% 7%; /* #14120f */
+.bg-tertiary {
+  background-color: #d1d500;
+}
 
-        --radius: 0.5rem;
-    }
-
-    .dark {
-        /* Tema escuro */
-        --background: 36 14% 4%; /* #0C0B09 */
-        --foreground: 0 0% 100%; /* branco */
-
-        --primary: 24 100% 50%; /* #ff6600 */
-        --primary-foreground: 0 0% 100%; /* #fff */
-
-        --secondary: 285 76% 31%;
-        --secondary-foreground: 0 0% 100%;
-
-        --tertiary: 63 100% 41%;
-        --tertiary-foreground: 0 0% 0%;
-
-        --card: 0 0% 10%;
-        --card-foreground: 0 0% 100%;
-
-        --popover: 0 0% 10%;
-        --popover-foreground: 0 0% 100%;
-
-        --muted: 0 0% 20%;
-        --muted-foreground: 0 0% 65%;
-
-        --accent: 0 0% 20%;
-        --accent-foreground: 0 0% 100%;
-
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 100%;
-
-        --border: 0 0% 20%;
-        --input: 0 0% 20%;
-        --ring: 24 100% 60%;
-
-        --chart-1: 24 100% 60%;
-        --chart-2: 63 100% 41%;
-        --chart-3: 285 76% 31%;
-        --chart-4: 0 0% 100%;
-        --chart-5: 0 0% 80%;
-    }
-
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
+/* Ensure proper color scheme detection */
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
 }
