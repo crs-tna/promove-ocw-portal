@@ -71,7 +71,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Arial, Helvetica, sans-serif',
+    fontFamily: 'var(--font-roboto), var(--font-readex), var(--font-montserrat), Arial, sans-serif',
     h1: {
       fontWeight: 700,
     },
@@ -142,7 +142,7 @@ export const darkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Arial, Helvetica, sans-serif',
+    fontFamily: 'var(--font-roboto), var(--font-readex), var(--font-montserrat), Arial, sans-serif',
     h1: {
       fontWeight: 700,
     },

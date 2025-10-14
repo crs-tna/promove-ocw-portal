@@ -1,33 +1,73 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import { Providers } from "../common/providers";
+import type { Metadata } from 'next'
+import { Readex_Pro, Roboto, Montserrat } from 'next/font/google'
+import { Box } from '@mui/material'
+import './globals.css'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
+import { Analytics } from '@vercel/analytics/next'
+import Header from '@/components/header'
+import { Providers } from '../common/providers'
 
 const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
-};
+    metadataBase: new URL(defaultUrl),
+    title: 'Cursos abertos | UFRJ',
+    description:
+        'Plataforma de Cursos abertos da Universidade Federal do Rio de Janeiro',
+}
+
+const readexPro = Readex_Pro({ subsets: ['latin'], variable: '--font-readex' })
+const roboto = Roboto({
+    subsets: ['latin'],
+    weight: ['400', '700'],
+    variable: '--font-roboto',
+})
+const montserrat = Montserrat({
+    subsets: ['latin'],
+    weight: ['400', '700'],
+    variable: '--font-montserrat',
+})
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
-        <Providers>
-          {children}
-        </Providers>
-      </body>
-    </html>
-  );
+    return (
+        <html
+            lang="pt-BR"
+            className={`${readexPro.variable} ${roboto.variable} ${montserrat.variable}`}
+        >
+            <body>
+                <Analytics />
+                <Providers>
+                    <Box
+                        sx={{
+                            minHeight: '100vh',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}
+                    >
+                        <Header />
+                        <Box
+                            component="main"
+                            sx={{
+                                flexGrow: 1,
+                                width: '100%',
+                            }}
+                        >
+                            {children}
+                            <div id="modal-root" />
+                        </Box>
+                    </Box>
+                </Providers>
+            </body>
+        </html>
+    )
 }

@@ -1,6 +1,4 @@
 'use client'
-
-import Image from 'next/image'
 import Link from 'next/link'
 import {
     Box,
@@ -9,6 +7,7 @@ import {
     Button,
     Stack
 } from '@mui/material'
+import { HeroImage } from '../hero-image'
 
 export function Hero() {
     
@@ -30,15 +29,24 @@ export function Hero() {
                     width: { xs: '100%', lg: '50%' },
                     height: '100%',
                     zIndex: -1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
             >
-                <Image
-                    src={'/images/hero.jpg'}
-                    alt="hero image"
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    priority
-                />
+                <Box
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                        '& svg': {
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                        }
+                    }}
+                >
+                    <HeroImage />
+                </Box>
             </Box>
 
             {/* Content Container */}
@@ -116,7 +124,6 @@ export function Hero() {
                             href="/auth/sign-up"
                             variant="contained"
                             color="primary"
-                            size="large"
                             sx={{
                                 px: 4,
                                 py: 1.5,
