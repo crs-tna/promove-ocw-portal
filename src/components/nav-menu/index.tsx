@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    Avatar,
     IconButton,
     Menu,
     MenuItem,
@@ -26,6 +27,21 @@ import { useRouter } from 'next/navigation'
 import { useUser } from '@/common/contexts/user-context'
 import { ENDPOINTS } from '@/common/lib/endpoints'
 import { createClient } from '@/common/lib/supabase/client'
+
+function stringAvatar(name: string) {
+    return {
+        sx: {
+            bgcolor: 'primary.main',
+            width: 32,
+            height: 32,
+            fontSize: 14,
+        },
+        children: name
+            .split(' ')
+            .map((n) => n[0])
+            .join(''),
+    }
+}
 
 const NavMenu = () => {
     const [mounted, setMounted] = useState(false)
@@ -70,6 +86,27 @@ const NavMenu = () => {
     const ICON_SIZE = 16
     const open = Boolean(anchorEl)
 
+    const getAvatarProps = () => {
+        if (profile?.user_image) {
+            return {
+                src: profile.user_image,
+                sx: { width: 40, height: 40 },
+            }
+        }
+        if (profile?.first_name && profile?.last_name) {
+            return stringAvatar(`${profile.first_name} ${profile.last_name}`)
+        }
+        return {
+            sx: {
+                bgcolor: 'primary.main',
+                width: 32,
+                height: 32,
+                fontSize: 14,
+            },
+            children: '?',
+        }
+    }
+
     return (
         <>
             <IconButton
@@ -78,7 +115,7 @@ const NavMenu = () => {
                 sx={{ color: 'text.secondary' }}
                 aria-label="change theme"
             >
-                <MenuOutlinedIcon />
+                <Avatar {...getAvatarProps()} />
             </IconButton>
             <Menu
                 anchorEl={anchorEl}
@@ -131,9 +168,11 @@ const NavMenu = () => {
                                     </Typography>
                                 </Box>
                                 <Divider />
-                                <MenuItem 
+                                <MenuItem
                                     sx={{ pb: 1, pt: 2 }}
-                                    onClick={() => handleNavigation(ENDPOINTS.USER.PROFILE)}
+                                    onClick={() =>
+                                        handleNavigation(ENDPOINTS.USER.PROFILE)
+                                    }
                                 >
                                     <ListItemIcon sx={{ minWidth: 32 }}>
                                         <SettingsOutlinedIcon
@@ -147,9 +186,11 @@ const NavMenu = () => {
                                         }}
                                     />
                                 </MenuItem>
-                                <MenuItem 
+                                <MenuItem
                                     sx={{ py: 1 }}
-                                    onClick={() => handleNavigation(ENDPOINTS.USER.COURSES)}
+                                    onClick={() =>
+                                        handleNavigation(ENDPOINTS.USER.COURSES)
+                                    }
                                 >
                                     <ListItemIcon sx={{ minWidth: 32 }}>
                                         <BookOutlinedIcon
@@ -163,9 +204,13 @@ const NavMenu = () => {
                                         }}
                                     />
                                 </MenuItem>
-                                <MenuItem 
+                                <MenuItem
                                     sx={{ py: 1 }}
-                                    onClick={() => handleNavigation(ENDPOINTS.USER.CALENDAR)}
+                                    onClick={() =>
+                                        handleNavigation(
+                                            ENDPOINTS.USER.CALENDAR
+                                        )
+                                    }
                                 >
                                     <ListItemIcon sx={{ minWidth: 32 }}>
                                         <CalendarTodayOutlinedIcon
@@ -251,10 +296,7 @@ const NavMenu = () => {
                         </MenuItem>
 
                         <Divider />
-                        <MenuItem 
-                            sx={{ pt: 1, pb: 2 }}
-                            onClick={handleLogout}
-                        >
+                        <MenuItem sx={{ pt: 1, pb: 2 }} onClick={handleLogout}>
                             <ListItemIcon sx={{ minWidth: 32 }}>
                                 <LogoutOutlinedIcon
                                     sx={{ fontSize: ICON_SIZE }}
