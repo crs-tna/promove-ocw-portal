@@ -71,7 +71,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'var(--font-roboto), var(--font-readex), var(--font-montserrat), Arial, sans-serif',
+    fontFamily: 'var(--font-readex), var(--font-montserrat), Arial, sans-serif',
     h1: {
       fontWeight: 700,
     },
@@ -90,6 +90,12 @@ export const theme = createTheme({
     h6: {
       fontWeight: 500,
     },
+    body1: {
+      fontFamily: 'var(--font-roboto), Arial, sans-serif',
+    },
+    body2: {
+      fontFamily: 'var(--font-roboto), Arial, sans-serif',
+    },
   },
   shape: {
     borderRadius: 8, // 0.5rem converted to pixels
@@ -107,6 +113,42 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputBase-input': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+          '& .MuiInputLabel-root': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+          '& .MuiFormHelperText-root': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
         },
       },
     },
@@ -142,7 +184,7 @@ export const darkTheme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'var(--font-roboto), var(--font-readex), var(--font-montserrat), Arial, sans-serif',
+    fontFamily: 'var(--font-readex), var(--font-montserrat), Arial, sans-serif',
     h1: {
       fontWeight: 700,
     },
@@ -161,6 +203,12 @@ export const darkTheme = createTheme({
     h6: {
       fontWeight: 500,
     },
+    body1: {
+      fontFamily: 'var(--font-roboto), Arial, sans-serif',
+    },
+    body2: {
+      fontFamily: 'var(--font-roboto), Arial, sans-serif',
+    },
   },
   shape: {
     borderRadius: 8,
@@ -178,6 +226,42 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: '0 1px 3px 0 rgb(255 255 255 / 0.1), 0 1px 2px -1px rgb(255 255 255 / 0.1)',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputBase-input': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+          '& .MuiInputLabel-root': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+          '& .MuiFormHelperText-root': {
+            fontFamily: 'var(--font-roboto), Arial, sans-serif',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-roboto), Arial, sans-serif',
         },
       },
     },

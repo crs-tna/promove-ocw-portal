@@ -9,20 +9,25 @@ import {
 } from 'react'
 import { createClient } from '../lib/supabase/client'
 import { User } from '@supabase/supabase-js'
-import { User as DBUser, UsersRole } from '../lib/types'
 
 type UserRole = 'Professor' | 'Estudante' | 'Convidado' | null
 
-interface UserProfile extends DBUser {
-    email?: string // Email comes from auth.users, not public.users
-    role?: UsersRole
+interface FullUserData {
+    id: string
+    email: string
+    first_name: string
+    last_name: string
+    dre: string | null
+    role: UserRole
+    user_image: string
+    created_at: string
 }
 
 interface UserState {
     loggedIn: boolean
     role: UserRole
     user: User | null
-    profile: UserProfile | null
+    profile: FullUserData | null
     loading: boolean
 }
 
@@ -64,10 +69,7 @@ export function UserContextProvider({ children }: ProviderProps) {
 
             const { data: profile, error: profileError } = await supabase
                 .from('users')
-                .select(`
-                    *,
-                    users_roles(id, name)
-                `)
+                .select('*')
                 .eq('id', user.id)
                 .single()
 
@@ -82,29 +84,11 @@ export function UserContextProvider({ children }: ProviderProps) {
                 return
             }
 
-            // Map role_id to role name
-            let userRole: UserRole = 'Convidado'
-            if (profile.users_roles?.name) {
-                userRole = profile.users_roles.name as UserRole
-            } else if (profile.role_id === 1) {
-                userRole = 'Professor'
-            } else if (profile.role_id === 2) {
-                userRole = 'Estudante'
-            } else if (profile.role_id === 3) {
-                userRole = 'Convidado'
-            }
-
-            const userProfile: UserProfile = {
-                ...profile,
-                email: user.email || undefined,
-                role: profile.users_roles
-            }
-
             setUserState({
                 loggedIn: true,
-                role: userRole,
+                role: profile.role ?? 'Convidado',
                 user,
-                profile: userProfile,
+                profile,
                 loading: false,
             })
         }
@@ -133,30 +117,4 @@ export function useUser() {
         throw new Error('useUser must be used within an UserContextProvider')
     }
     return context
-}
-
-// Helper functions for role checking
-export function useUserRole() {
-    const { role } = useUser()
-    return {
-        role,
-        isProfessor: role === 'Professor',
-        isStudent: role === 'Estudante',
-        isGuest: role === 'Convidado',
-        isLoggedIn: role !== null
-    }
-}
-
-export function useUserProfile() {
-    const { profile, loading } = useUser()
-    return {
-        profile,
-        loading,
-        userId: profile?.id,
-        userEmail: profile?.email,
-        userName: profile ? `${profile.first_name} ${profile.last_name}` : null,
-        userDre: profile?.dre,
-        userImage: profile?.user_image,
-        roleId: profile?.role_id
-    }
 }

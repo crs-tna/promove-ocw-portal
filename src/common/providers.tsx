@@ -1,5 +1,4 @@
 'use client'
-
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
@@ -16,7 +15,6 @@ function MuiThemeProviderWrapper({ children }: { children: React.ReactNode }) {
   }, [])
 
   if (!mounted) {
-    // Return a default theme during SSR
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
